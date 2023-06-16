@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey, Table, Column
+from sqlalchemy import ForeignKey, Table, Column, ForeignKeyConstraint
 from sqlalchemy.sql.sqltypes import Integer, String
 
 from config.db import meta, engine
@@ -17,10 +17,12 @@ productos = Table("productos", meta,
     Column("Nombre", String(255))
 )
 
-versiones = Table("versiones", meta, 
+versiones = Table(
+    "versiones",
+    meta,
     Column("CodigoVersion", Integer, primary_key=True),
-    Column("CodigoProducto", Integer, ForeignKey("productos.CodigoProducto")),
-    Column("Estado", String(255))
+    Column("CodigoDeProducto", Integer, ForeignKey("productos.CodigoProducto", ondelete="CASCADE"), nullable=False),
+    Column("Estado", String(255)),
 )
 
 clientes = Table("clientes", meta, 

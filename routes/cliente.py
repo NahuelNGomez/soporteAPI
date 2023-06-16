@@ -2,7 +2,7 @@ from fastapi import APIRouter, Response, status
 from starlette.status import HTTP_204_NO_CONTENT
 from config.db import conn
 from typing import List
-from models.ticket import clientes
+from models.models import clientes
 from schemes.cliente import Cliente
 
 cliente = APIRouter()
