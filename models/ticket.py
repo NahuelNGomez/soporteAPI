@@ -12,4 +12,8 @@ tickets = Table("tickets", meta, Column(
       Column("Severidad", String(255)))
 
 
+productos = Table("productos", meta, Column(
+    "CodigoProducto", Integer, primary_key=True),
+      Column("Nombre", String(255)))
+
 meta.create_all(engine)

@@ -37,5 +37,3 @@ def update_ticket(id:str, ticket: Ticket):
                                                    Estado = ticket.Estado,
                                                    Severidad = ticket.Severidad).where(tickets.c.id == id))
     return conn.execute(tickets.select().where(tickets.c.id == id)).first()
-
-     
