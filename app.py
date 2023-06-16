@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes.user import user
+from routes.ticket import ticket
 
 app = FastAPI()
-app.include_router(user)
+app.include_router(ticket)
