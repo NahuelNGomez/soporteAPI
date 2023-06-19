@@ -4,7 +4,7 @@ from routes.producto import producto
 from routes.version import version
 from routes.cliente import cliente, add_clientes
 from routes.licencia import licencia
-
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 app.include_router(ticket)
@@ -14,3 +14,15 @@ app.include_router(cliente)
 app.include_router(licencia)
 
 add_clientes()
+
+origins = [
+    "http://localhost:3000",  # Origen permitido (puedes añadir más si es necesario)
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
