@@ -21,7 +21,7 @@ versiones = Table(
 )
 
 clientes = Table("clientes", meta, 
-    Column("CUIL", Integer, primary_key=True),
+    Column("CUIT", String, primary_key=True),
     Column("Nombre", String(255))
 )
 
@@ -33,12 +33,12 @@ tickets = Table("tickets", meta,
     Column("Estado", String(255)),
     Column("Severidad", String(255)),
     Column("idVersion", Integer, ForeignKey("versiones.idVersion",ondelete="CASCADE"), nullable=False),
-    Column("CUIL", Integer, ForeignKey("clientes.CUIL", ondelete="CASCADE"), nullable=False)
+    Column("CUIT", String, ForeignKey("clientes.CUIT", ondelete="CASCADE"), nullable=False)
 )
 
 licencias = Table("licencias", meta, 
     Column("idVersion", Integer, ForeignKey("versiones.idVersion",ondelete="CASCADE"), primary_key=True, nullable=False),
-    Column("CUIL", Integer, ForeignKey("clientes.CUIL",ondelete="CASCADE"), primary_key=True, nullable=False),
+    Column("CUIT", String, ForeignKey("clientes.CUIT",ondelete="CASCADE"), primary_key=True, nullable=False),
 )
 
 meta.create_all(engine)
