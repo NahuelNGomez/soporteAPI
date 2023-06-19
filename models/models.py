@@ -1,19 +1,21 @@
-from sqlalchemy import ForeignKey, Table, Column, ForeignKeyConstraint
+from sqlalchemy import ForeignKey, PrimaryKeyConstraint, Table, Column, ForeignKeyConstraint
 from sqlalchemy.sql.sqltypes import Integer, String
+from sqlalchemy import UniqueConstraint
 
 from config.db import meta, engine
 
-
+meta.drop_all(engine)
 
 productos = Table("productos", meta, 
     Column("CodigoProducto", Integer, primary_key=True),
-    Column("Nombre", String(255))
+    Column("Nombre", String(255)),
 )
 
 versiones = Table(
     "versiones",
     meta,
-    Column("CodigoVersion", Integer, primary_key=True),
+    Column("idVersion", Integer, nullable=False, primary_key=True),
+    Column("CodigoVersion", String, nullable=False),
     Column("CodigoProducto", Integer, ForeignKey("productos.CodigoProducto", ondelete="CASCADE"), nullable=False),
     Column("Estado", String(255)),
 )
@@ -30,8 +32,13 @@ tickets = Table("tickets", meta,
     Column("Escenario", String(255)),
     Column("Estado", String(255)),
     Column("Severidad", String(255)),
-    Column("CodigoProducto", Integer, ForeignKey("productos.CodigoProducto", ondelete="CASCADE"), nullable=False),
-    Column("CodigoVersion", Integer, ForeignKey("versiones.CodigoVersion", ondelete="CASCADE"), nullable=False)
+    Column("idVersion", Integer, ForeignKey("versiones.idVersion",ondelete="CASCADE"), nullable=False),
+    Column("CUIL", Integer, ForeignKey("clientes.CUIL", ondelete="CASCADE"), nullable=False)
+)
+
+licencias = Table("licencias", meta, 
+    Column("idVersion", Integer, ForeignKey("versiones.idVersion",ondelete="CASCADE"), primary_key=True, nullable=False),
+    Column("CUIL", Integer, ForeignKey("clientes.CUIL",ondelete="CASCADE"), primary_key=True, nullable=False),
 )
 
 meta.create_all(engine)

@@ -24,4 +24,8 @@ def create_version(version: Version):
         conn.execute(versiones.insert().values(newVersion))
     except IntegrityError:
         raise HTTPException(status_code=500, detail="Error en parámetros")
-    return newVersion
+    return {"idVersion": conn.execute(versiones.select()).fetchall()[-1].idVersion,
+                "CodigoVersion": version.CodigoVersion,
+                "CodigoProducto": version.CodigoProducto,
+                "Estado": version.Estado
+            }

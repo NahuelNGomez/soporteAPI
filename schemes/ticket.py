@@ -2,14 +2,14 @@ from pydantic import BaseModel
 from typing import Optional
 
 class Ticket(BaseModel):
-    id: Optional[str]
+    id: Optional[int]
     Nombre: str
     Descripcion: str
     Escenario: str
     Estado: str
     Severidad: str
-    CodigoProducto: int
-    CodigoVersion: int
+    idVersion: int
+    CUIL: int
 
     def verificarEstado(self):
         return ((self.Estado == "Nuevo") or (self.Estado == "En progreso") or (self.Estado == "Cerrado"))

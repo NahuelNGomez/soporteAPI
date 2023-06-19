@@ -21,7 +21,8 @@ def create_ticket(ticket: Ticket):
                   "Estado": ticket.Estado,
                   "Severidad": ticket.Severidad,
                   "CodigoProducto": ticket.CodigoProducto,
-                  "CodigoVersion": ticket.CodigoVersion
+                  "CodigoVersion": ticket.CodigoVersion,
+                  "CUIL": ticket.CUIL
                   }
     exception = ticket.verificarError()
     if (exception != None):
@@ -37,7 +38,8 @@ def create_ticket(ticket: Ticket):
                   "Estado": ticket.Estado,
                   "Severidad": ticket.Severidad,
                   "CodigoProducto": ticket.CodigoProducto,
-                  "CodigoVersion": ticket.CodigoVersion
+                  "CodigoVersion": ticket.CodigoVersion,
+                  "CUIL": ticket.CUIL
             }
 
 @ticket.get('/tickets/{id}', response_model=Ticket, tags=["Tickets"])
@@ -61,6 +63,6 @@ def update_ticket(id: int, ticket: Dict):
     try:
         conn.execute(tickets.update().values(**update_data).where(tickets.c.id == int(id)))
     except IntegrityError:
-        raise HTTPException(status_code=500, detail="Error updating user")
+        raise HTTPException(status_code=500, detail="Error updating ticket")
 
     return conn.execute(tickets.select().where(tickets.c.id == int(id))).first()
