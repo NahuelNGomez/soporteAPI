@@ -11,6 +11,15 @@ class Ticket(BaseModel):
     idVersion: int
     CUIT: str
 
+    def __init__(self,nombre, descripcion, escenario, estado, severidad, cuit, idVersion):
+        self.Nombre = nombre
+        self.Descripcion = descripcion
+        self.Escenario = escenario
+        self.Estado = estado
+        self.Severidad = severidad
+        self.CUIT = cuit
+        self.idVersion = idVersion
+
     def verificarEstado(self):
         return ((self.Estado == "Nuevo") or (self.Estado == "En progreso") or (self.Estado == "Cerrado"))
     

@@ -1,21 +1,27 @@
 from behave import *
 from selenium import webdriver
 
-@given('Ticket con estado "En curso"')
-def ticket_con_estado_en_curso(context):
-    raise NotImplementedError(u'STEP: Given Ticket con estado "En curso"')
+from schemes.ticket import Ticket
+from routes.ticket import Ticket
 
+
+@given('Ticket con estado "En curso"')
+def ticket_con_estado_en_curso():
+    ticket_prueba = Ticket("Hola", "a", "a", "En Progreso", "S1", "31932879812", "123")
+    
+    
 
 @when(u'Se Completa un Ticket')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: When Se Completa un Ticket')
+def ticket_completado():
+    
+    
 
 
 @then(u'Ticket no debe tener estado "En curso"')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Then Ticket no debe tener estado "En curso"')
 
-
+"""
 @given(u'una lista de clientes y un producto')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Given una lista de clientes y un producto')
@@ -49,3 +55,4 @@ def step_impl(context):
 @then(u'el ticket se creará con estado "nuevo".')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Then el ticket se creará con estado "nuevo".')
+    """
