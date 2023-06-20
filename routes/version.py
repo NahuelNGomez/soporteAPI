@@ -5,11 +5,14 @@ from typing import List
 from models.models import versiones
 from schemes.version import Version
 from sqlalchemy.exc import IntegrityError
+from service.versionService import VersionService
+
 version = APIRouter()
+versionService = VersionService()
 
 @version.get('/versiones', response_model=List[Version], tags=["Versiones"])
 def get_versiones():
-    return conn.execute(versiones.select()).fetchall()
+    return versionService.getVersiones()
 
 @version.post('/versiones', response_model=Version, tags=["Versiones"])
 def create_version(version: Version):
@@ -20,12 +23,17 @@ def create_version(version: Version):
 }
     if(not version.verificarEstado()):
         raise HTTPException(status_code=500, detail="Estado invalido")
-    try: 
-        conn.execute(versiones.insert().values(newVersion))
+    try:
+        versionService.crearVersion(newVersion) 
     except IntegrityError:
-        raise HTTPException(status_code=500, detail="Error en parámetros")
-    return {"idVersion": conn.execute(versiones.select()).fetchall()[-1].idVersion,
+            raise HTTPException(status_code=500, detail="Error en parámetros")
+    
+    return {"idVersion": versionService.getLastIdVersionAdded(),
                 "CodigoVersion": version.CodigoVersion,
                 "CodigoProducto": version.CodigoProducto,
                 "Estado": version.Estado
             }
+
+@version.get('/versiones/{idVersion}', response_model=Version, tags=["Versiones"])
+def get_producto(idVersion: int):
+    return versionService.getVersion(idVersion)

@@ -7,12 +7,15 @@ from schemes.ticket import Ticket
 from sqlalchemy.exc import IntegrityError
 from typing import Dict
 from handlers.verifications import *
+from service.ticketService import TicketService
 
 ticket = APIRouter()
 
+ticketService = TicketService()
+
 @ticket.get('/tickets', response_model=List[Ticket], tags=["Tickets"])
 def get_tickets():
-    return conn.execute(tickets.select()).fetchall()
+    return ticketService.getTickets()
 @ticket.post('/tickets', response_model=Ticket, tags=["Tickets"])
 def create_ticket(ticket: Ticket):
     newTicket = {"Nombre": ticket.Nombre,
@@ -27,10 +30,10 @@ def create_ticket(ticket: Ticket):
     if (exception != None):
         raise HTTPException(status_code=500, detail=exception)
     try: 
-        conn.execute(tickets.insert().values(newTicket))
+        ticketService.crearTicket(newTicket)
     except IntegrityError:
         raise HTTPException(status_code=500, detail="Error en parámetros")
-    return {"id": conn.execute(tickets.select()).fetchall()[-1].id,
+    return {"id": ticketService.getLastIdTicketAdded(),
                   "Nombre": ticket.Nombre,
                   "Descripcion": ticket.Descripcion,
                   "Escenario": ticket.Escenario,
@@ -40,17 +43,22 @@ def create_ticket(ticket: Ticket):
                   "CUIT": ticket.CUIT
             }
 
-@ticket.get('/tickets/{id}', response_model=Ticket, tags=["Tickets"])
-def get_ticket(id:str):
-    return conn.execute(tickets.select().where(tickets.c.id == id)).first()
+@ticket.get('/tickets/id/{ticket_id}', response_model=Ticket, tags=["Tickets"])
+def get_ticket(id:int):
+    return ticketService.getTicketByID(id)
+
+@ticket.get('/tickets/CUIT/{CUIT}', response_model=List[Ticket], tags=["Tickets"])
+def get_ticket(CUIT:str):
+    return ticketService.getTicketByCUIT(CUIT)
 
 @ticket.delete('/tickets/{id}', status_code= status.HTTP_204_NO_CONTENT, tags=["Tickets"])
-def delete_ticket(id:str):
-    result = conn.execute(tickets.delete().where(tickets.c.id == id))
+def delete_ticket(id:int):
+    result = ticketService.deleteTicket(id)
     return Response(status_code=HTTP_204_NO_CONTENT)
 
 @ticket.put('/tickets/{id}', response_model=Ticket, tags=["Tickets"])
 def update_ticket(id: int, ticket: Dict):
+    
 
     update_data = {k: v for k, v in ticket.items() if v is not None}
     if not update_data:
@@ -59,8 +67,8 @@ def update_ticket(id: int, ticket: Dict):
     if (excepcion):
         raise HTTPException(status_code=500, detail=excepcion)
     try:
-        conn.execute(tickets.update().values(**update_data).where(tickets.c.id == int(id)))
+        ticketService.updateTicket(id, update_data)
     except IntegrityError:
         raise HTTPException(status_code=500, detail="Error updating ticket")
 
-    return conn.execute(tickets.select().where(tickets.c.id == int(id))).first()
+    return ticketService.getTicket(id)

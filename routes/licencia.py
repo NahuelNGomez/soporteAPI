@@ -5,21 +5,25 @@ from typing import List
 from models.models import licencias
 from schemes.licencia import Licencia
 from sqlalchemy.exc import IntegrityError
+from service.licenciaService import LicenciaService
+from sqlalchemy.exc import IntegrityError
+from fastapi import HTTPException
 
 licencia = APIRouter()
+licenciaService = LicenciaService()
 
 @licencia.get('/licencias', response_model=List[Licencia], tags=["Licencias"])
 def get_licencias():
-    return conn.execute(licencias.select()).fetchall()
+    return licenciaService.getLicencias()
 
 @licencia.post('/licencias', response_model=Licencia, tags=["Licencias"])
 def create_licencia(licencia: Licencia):
-    licencia_nueva = {"CodigoVersion": licencia.CodigoVersion,
+    nuevaLicencia = {"CodigoVersion": licencia.CodigoVersion,
                    "CUIT": licencia.CUIT,
                    "CodigoProducto": licencia.CodigoProducto
                    }
-    try: 
-        conn.execute(licencias.insert().values(licencia_nueva))
+    try:
+        licenciaService.crearLicencia(nuevaLicencia)
     except IntegrityError:
-        raise HTTPException(status_code=500, detail="Error en parámetros")
-    return licencia_nueva
+            raise HTTPException(status_code=500, detail="Error en parámetros")    
+    return nuevaLicencia
