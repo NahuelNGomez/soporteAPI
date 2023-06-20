@@ -20,9 +20,8 @@ def create_ticket(ticket: Ticket):
                   "Escenario": ticket.Escenario,
                   "Estado": ticket.Estado,
                   "Severidad": ticket.Severidad,
-                  "CodigoProducto": ticket.CodigoProducto,
-                  "CodigoVersion": ticket.CodigoVersion,
-                  "CUIL": ticket.CUIL
+                  "idVersion": ticket.idVersion,
+                  "CUIT": ticket.CUIT
                   }
     exception = ticket.verificarError()
     if (exception != None):
@@ -37,9 +36,8 @@ def create_ticket(ticket: Ticket):
                   "Escenario": ticket.Escenario,
                   "Estado": ticket.Estado,
                   "Severidad": ticket.Severidad,
-                  "CodigoProducto": ticket.CodigoProducto,
-                  "CodigoVersion": ticket.CodigoVersion,
-                  "CUIL": ticket.CUIL
+                  "idVersion": ticket.idVersion,
+                  "CUIT": ticket.CUIT
             }
 
 @ticket.get('/tickets/{id}', response_model=Ticket, tags=["Tickets"])

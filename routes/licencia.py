@@ -15,7 +15,7 @@ def get_licencias():
 @licencia.post('/licencias', response_model=Licencia, tags=["Licencias"])
 def create_licencia(licencia: Licencia):
     licencia_nueva = {"CodigoVersion": licencia.CodigoVersion,
-                   "CUIL": licencia.CUIL,
+                   "CUIT": licencia.CUIT,
                    "CodigoProducto": licencia.CodigoProducto
                    }
     try: 

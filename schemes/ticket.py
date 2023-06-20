@@ -9,7 +9,7 @@ class Ticket(BaseModel):
     Estado: str
     Severidad: str
     idVersion: int
-    CUIL: int
+    CUIT: str
 
     def verificarEstado(self):
         return ((self.Estado == "Nuevo") or (self.Estado == "En progreso") or (self.Estado == "Cerrado"))
