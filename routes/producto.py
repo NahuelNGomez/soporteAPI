@@ -1,12 +1,15 @@
 from fastapi import APIRouter
 from typing import List
 from schemes.producto import Producto
+from schemes.ticket import Ticket
 from service.productoService import ProductoService
 from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
+from service.ticketService import TicketService
 
 producto = APIRouter()
 productoService = ProductoService()
+ticketService = TicketService()
 
 @producto.get('/productos', response_model=List[Producto], tags=["Productos"])
 def get_producto():
@@ -26,3 +29,7 @@ def create_producto(producto: Producto):
 @producto.get('/productos/{CodigoProducto}', response_model=Producto, tags=["Productos"])
 def get_producto(codigoProducto: int):
     return productoService.getProducto(codigoProducto)
+
+@producto.get('/productos/{CodigoProducto}/tickets', response_model=List[Ticket], tags=["Productos"])
+def get_producto(idVersion: int):
+    return ticketService.getTicketsByIdVersion(idVersion)

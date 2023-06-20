@@ -41,5 +41,25 @@ class TicketService():
     def deleteTicket(self, id):
         return conn.execute(tickets.delete().where(tickets.c.id == id))
     
-    def updateTicket(id, update_data):
+    def updateTicket(self, id, update_data):
         return conn.execute(tickets.update().values(**update_data).where(tickets.c.id == int(id)))
+    
+    def getTicketsByIdVersion(self, idVersion):
+        query = tickets.select().where(tickets.c.idVersion == idVersion)
+        result_proxy = conn.execute(query)
+        rows = result_proxy.fetchall()
+        tickets_list = []
+        for row in rows:
+            ticket = Ticket(
+                id=row.id,
+                Nombre=row.Nombre,
+                Descripcion=row.Descripcion,
+                Escenario=row.Escenario,
+                Estado=row.Estado,
+                Severidad=row.Severidad,
+                idVersion=row.idVersion,
+                CUIT=row.CUIT
+            )
+            tickets_list.append(ticket)
+        
+        return tickets_list
