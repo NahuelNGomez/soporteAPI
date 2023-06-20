@@ -4,6 +4,7 @@ from routes.producto import producto
 from routes.version import version
 from routes.cliente import cliente, add_clientes
 from routes.licencia import licencia
+from routes.reporte import reporte
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -12,6 +13,7 @@ app.include_router(producto)
 app.include_router(version)
 app.include_router(cliente)
 app.include_router(licencia)
+app.include_router(reporte)
 
 add_clientes()
 
