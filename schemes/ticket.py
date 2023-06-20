@@ -33,3 +33,5 @@ class Ticket(BaseModel):
         if (not self.verificarSeveridad()):
             excepcion = "Severidad Invalida (S1 - S2 - S3 - S4)"
         return excepcion
+
+
