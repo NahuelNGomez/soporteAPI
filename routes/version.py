@@ -5,12 +5,13 @@ from typing import List
 from models.models import versiones
 from schemes.version import Version
 from sqlalchemy.exc import IntegrityError
+from schemes.versionConNombre import VersionConNombre
 from service.versionService import VersionService
 
 version = APIRouter()
 versionService = VersionService()
 
-@version.get('/versiones', response_model=List[Version], tags=["Versiones"])
+@version.get('/versiones', response_model=List[VersionConNombre], tags=["Versiones"])
 def get_versiones():
     return versionService.getVersiones()
 

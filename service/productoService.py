@@ -13,5 +13,5 @@ class ProductoService():
     def getProducto(self, codigoProducto):
         return conn.execute(productos.select().where(productos.c.CodigoProducto == codigoProducto)).first()
         
-    def getLastCodigoProductoAdded():
+    def getLastCodigoProductoAdded(self):
         return conn.execute(productos.select()).fetchall()[-1].CodigoProducto
