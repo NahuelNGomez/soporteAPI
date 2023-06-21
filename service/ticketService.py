@@ -1,6 +1,12 @@
 from config.db import conn
 from models.models import tickets
 from schemes.ticket import Ticket
+from schemes.ticketConNombre import TicketConNombre
+from service.productoService import ProductoService
+from service.versionService import VersionService
+
+productoService = ProductoService()
+versionService = VersionService()
 
 class TicketService():
 
@@ -50,7 +56,7 @@ class TicketService():
         rows = result_proxy.fetchall()
         tickets_list = []
         for row in rows:
-            ticket = Ticket(
+            ticket = TicketConNombre(
                 id=row.id,
                 Nombre=row.Nombre,
                 Descripcion=row.Descripcion,
@@ -58,6 +64,7 @@ class TicketService():
                 Estado=row.Estado,
                 Severidad=row.Severidad,
                 idVersion=row.idVersion,
+                nombreProducto= versionService.getProductoByIdVersion(idVersion).Nombre,
                 CUIT=row.CUIT
             )
             tickets_list.append(ticket)

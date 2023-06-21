@@ -27,6 +27,10 @@ class VersionService():
 
     def crearVersion(self, nuevaVersion):
         return conn.execute(versiones.insert().values(nuevaVersion))
+    
+    def getProductoByIdVersion(self, idVersion):
+        version = conn.execute(versiones.select().where(versiones.c.idVersion == idVersion)).first()
+        return productoService.getProducto(version.CodigoProducto)
 
     def getVersion(self, idVersion):
         return conn.execute(versiones.select().where(versiones.c.idVersion == idVersion)).first()
