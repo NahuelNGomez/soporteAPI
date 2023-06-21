@@ -31,6 +31,3 @@ def create_producto(producto: Producto):
 def get_producto(codigoProducto: int):
     return productoService.getProducto(codigoProducto)
 
-@producto.get('/productos/{idVersion}/tickets', response_model=List[TicketConNombre], tags=["Productos"])
-def get_producto(idVersion: int):
-    return ticketService.getTicketsByIdVersion(idVersion)
