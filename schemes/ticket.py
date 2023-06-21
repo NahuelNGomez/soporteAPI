@@ -12,7 +12,7 @@ class Ticket(BaseModel):
     CUIT: str
 
     def verificarEstado(self):
-        return ((self.Estado == "Nuevo") or (self.Estado == "En progreso") or (self.Estado == "Cerrado"))
+        return ((self.Estado == "Nuevo") or (self.Estado == "En curso") or (self.Estado == "Cerrado"))
     
     def verificarSeveridad(self):
         return ((self.Severidad == "S1") or (self.Severidad == "S2") or (self.Severidad == "S3") or (self.Severidad == "S4"))
