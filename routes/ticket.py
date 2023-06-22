@@ -1,4 +1,6 @@
+from datetime import date
 from fastapi import APIRouter, HTTPException, Response, status
+from pydantic import Field
 from starlette.status import HTTP_204_NO_CONTENT
 from config.db import conn
 from typing import List
@@ -33,8 +35,9 @@ def create_ticket(ticket: Ticket):
     try: 
         ticketService.crearTicket(newTicket)
     except IntegrityError:
-        raise HTTPException(status_code=500, detail="Error en parámetros")
+       raise HTTPException(status_code=500, detail="Error en parámetros")
     return {"id": ticketService.getLastIdTicketAdded(),
+            "FechaDeCreacion": date.today(),
                   "Nombre": ticket.Nombre,
                   "Descripcion": ticket.Descripcion,
                   "Escenario": ticket.Escenario,

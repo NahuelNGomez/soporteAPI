@@ -1,7 +1,9 @@
+from datetime import date
 from pydantic import BaseModel
 
 class TicketConNombre(BaseModel):
     id: int
+    FechaDeCreacion: str
     Nombre: str
     Descripcion: str
     Escenario: str

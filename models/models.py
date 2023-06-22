@@ -27,6 +27,7 @@ clientes = Table("clientes", meta,
 
 tickets = Table("tickets", meta, 
     Column("id", Integer, primary_key=True),
+    Column("FechaDeCreacion", String(255)),
     Column("Nombre", String(255)),
     Column("Descripcion", String(255)),
     Column("Escenario", String(255)),

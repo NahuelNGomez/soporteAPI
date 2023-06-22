@@ -2,6 +2,7 @@ from behave import *
 from selenium import webdriver
 from models.models import tickets
 from typing import Dict
+from datetime import date
 
 from schemes.ticket import Ticket
 from schemes.version import Version
@@ -61,6 +62,7 @@ def ticket_con_estado_en_curso(context):
                   }
     ticketService.crearTicket(context.ticket1)
     context.ticket1 = {"id": ticketService.getLastIdTicketAdded(),
+                       "FechaDeCreacion": date.today,
                   "Nombre":"TICKET_PRUEBA",
                 "Descripcion":"DESCRIPCION",
                 "Escenario":"ESCENARIO",
@@ -97,6 +99,7 @@ def step_impl(context, unID):
     context.error = None
     ticket = Ticket(
                 Nombre= "TicketPrueba",
+                FechaDeCreacion= date.today,
                 Descripcion="Decripcion",
                 Escenario="escenario",
                 Estado="En Curso",
@@ -129,6 +132,7 @@ def step_impl(context):
     try:
         ticket = Ticket(
                     Nombre= "TicketPrueba",
+                    FechaDeCreacion= date.today,
                     Descripcion="Decripcion",
                     Estado="En Curso",
                     Severidad="S1",

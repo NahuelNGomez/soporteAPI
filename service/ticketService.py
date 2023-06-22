@@ -32,6 +32,7 @@ class TicketService():
         for row in rows:
             ticket = Ticket(
                 id=row.id,
+                FechaDeCreacion= row.FechaDeCreacion,
                 Nombre=row.Nombre,
                 Descripcion=row.Descripcion,
                 Escenario=row.Escenario,
@@ -59,6 +60,7 @@ class TicketService():
         for row in rows:
             ticket = Ticket(
                 id=row.id,
+                FechaDeCreacion= row.FechaDeCreacion,
                 Nombre=row.Nombre,
                 Descripcion=row.Descripcion,
                 Escenario=row.Escenario,
