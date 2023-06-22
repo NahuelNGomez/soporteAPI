@@ -5,6 +5,7 @@ from typing import List
 from models.models import licencias
 from schemes.licencia import Licencia
 from sqlalchemy.exc import IntegrityError
+from schemes.licenciaConNombre import LicenciaConNombre
 from service.licenciaService import LicenciaService
 from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
@@ -15,12 +16,14 @@ licenciaService = LicenciaService()
 @licencia.get('/licencias', response_model=List[Licencia], tags=["Licencias"])
 def get_licencias():
     return licenciaService.getLicencias()
+@licencia.get('/licencias/{idVersion}', response_model=List[LicenciaConNombre], tags=["Licencias"])
+def get_licencias_by_idVersion(idVersion: int):
+    return licenciaService.getLicenciasByIdVersion(idVersion)
 
 @licencia.post('/licencias', response_model=Licencia, tags=["Licencias"])
 def create_licencia(licencia: Licencia):
-    nuevaLicencia = {"CodigoVersion": licencia.CodigoVersion,
+    nuevaLicencia = {"idVersion": licencia.idVersion,
                    "CUIT": licencia.CUIT,
-                   "CodigoProducto": licencia.CodigoProducto
                    }
     try:
         licenciaService.crearLicencia(nuevaLicencia)

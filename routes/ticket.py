@@ -49,9 +49,9 @@ def create_ticket(ticket: Ticket):
 def get_ticket(id:int):
     return ticketService.getTicketByID(id)
 
-@ticket.get('/tickets/CUIT/{CUIT}', response_model=List[Ticket], tags=["Tickets"])
-def get_ticket(CUIT:str):
-    return ticketService.getTicketByCUIT(CUIT)
+#@ticket.get('/tickets/CUIT/{CUIT}', response_model=List[Ticket], tags=["Tickets"])
+#def get_ticket(CUIT:str):
+ #   return ticketService.getTicketByCUIT(CUIT)
 
 @ticket.delete('/tickets/{id}', status_code= status.HTTP_204_NO_CONTENT, tags=["Tickets"])
 def delete_ticket(id:int):

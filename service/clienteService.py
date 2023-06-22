@@ -9,6 +9,9 @@ class ClienteService():
 
     def getClientes(self):
         return conn.execute(clientes.select()).fetchall()
+    
+    def getClienteByCUIT(self, CUIT):
+        return conn.execute(clientes.select().where(clientes.c.CUIT == CUIT)).first()
 
     def crearCliente(self, new_cliente):
         return conn.execute(clientes.insert().values(new_cliente))

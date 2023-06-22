@@ -16,6 +16,9 @@ clienteService = ClienteService()
 @cliente.get('/clientes', response_model=List[Cliente], tags=["Clientes"])
 def get_clientes():
     return clienteService.getClientes()
+@cliente.get('/cliente/{CUIT}', response_model=Cliente, tags=["Clientes"])
+def get_cliente(cliente: str):
+    return clienteService.getClienteByCUIT(cliente)
 
 @cliente.post('/clientes', response_model=Cliente, tags=["Clientes"])
 def create_cliente(cliente: Cliente):
