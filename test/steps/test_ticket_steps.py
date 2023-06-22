@@ -85,6 +85,71 @@ def step_impl(context, unEstado):
     assert(ticketService.getTicketByID(context.ticket1["id"]).Estado == unEstado)
     ticketService.deleteTicket(context.ticket1["id"])
 
+
+
+@given(u'Soy empleado de mesa de ayuda')
+def step_impl(context):
+    pass
+
+
+@when(u'Creo un ticket con un responsable asignado con id "{unID}"')
+def step_impl(context, unID):
+    context.error = None
+    ticket = Ticket(
+                Nombre= "TicketPrueba",
+                Descripcion="Decripcion",
+                Escenario="escenario",
+                Estado="En Curso",
+                Severidad="S1",
+                idVersion=2,
+                CUIT="20-12345678-3",
+                RecursoAsignado=unID
+            )
+    exception = ticket.verificarError()
+    if (exception != None):
+        context.error = exception
+    else:
+        ticketService.crearTicket(ticket)
+
+
+
+@when(u'Ese responsable no se encuentra en el sistema')
+def step_impl(context):
+    pass
+
+
+@then(u'Se emite un error')
+def step_impl(context):
+    assert(context.error != None)
+
+
+@when(u'Creo un ticket sin alguno de los atributos obligatorios')
+def step_impl(context):
+    context.error = None
+    try:
+        ticket = Ticket(
+                    Nombre= "TicketPrueba",
+                    Descripcion="Decripcion",
+                    Estado="En Curso",
+                    Severidad="S1",
+                    idVersion=2,
+                    CUIT="20-12345678-3",
+                    RecursoAsignado=2
+                )
+        exception = ticket.verificarError()
+        if (exception != None):
+            context.error = exception
+        else:
+            ticketService.crearTicket(ticket)
+    except Exception as error:
+        context.error = error
+
+
+
+@then(u'El ticket no es creado')
+def step_impl(context):
+    pass
+
 """
 @given(u'una lista de clientes y un producto')
 def step_impl(context):

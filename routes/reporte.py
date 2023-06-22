@@ -8,6 +8,5 @@ reporte = APIRouter()
 reporteService = ReporteService()
 
 @reporte.get('/reportes/{idVersion}', response_model=Reporte, tags=["Reportes"])
-def get_producto(idVersion: int):
+def get_reporte(idVersion: int):
     return reporteService.getReporte(idVersion)
-

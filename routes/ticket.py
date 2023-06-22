@@ -45,7 +45,7 @@ def create_ticket(ticket: Ticket):
                   "RecursoAsignado": ticket.RecursoAsignado
             }
 
-@ticket.get('/tickets/id/{ticket_id}', response_model=Ticket, tags=["Tickets"])
+@ticket.get('/tickets/{ticket_id}', response_model=Ticket, tags=["Tickets"])
 def get_ticket(id:int):
     return ticketService.getTicketByID(id)
 

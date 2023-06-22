@@ -16,6 +16,17 @@ class Ticket(BaseModel):
     CUIT: str
     RecursoAsignado: int
 
+    def asignar(self,Nombre, Descripcion, Escenario, Estado, Severidad, idVersion, CUIT, RecursoAsignado):
+        self.Nombre = Nombre
+        self.Descripcion = Descripcion
+        self.Escenario = Escenario
+        self.Estado = Estado
+        self.Severidad = Severidad
+        self.idVersion = idVersion
+        self.CUIT = CUIT
+        self.RecursoAsignado =  RecursoAsignado
+
+
     def verificarRecurso(self, recursoAsignado):
 
         empleados = requests.get(urlRecursos).json()
