@@ -1,5 +1,5 @@
 from datetime import date
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, root_validator, validator
 from typing import Optional
 import requests
 urlRecursos = "https://rrhh-squad6-1c2023.onrender.com/recursos"
@@ -20,9 +20,11 @@ class Ticket(BaseModel):
         use_enum_values = True
         allow_population_by_field_name = True
 
-    @validator('FechaDeCreacion', pre=True, always=True)
-    def set_default_fecha_creacion(cls, value):
-        return value or date.today()
+    @root_validator(pre=True)
+    def set_default_fecha_creacion(cls, values):
+        if not values.get('FechaDeCreacion'):
+            values['FechaDeCreacion'] = date.today()
+        return values
 
     def asignar(self,Nombre, Descripcion, Escenario, Estado, Severidad, idVersion, CUIT, RecursoAsignado):
         self.Nombre = Nombre
