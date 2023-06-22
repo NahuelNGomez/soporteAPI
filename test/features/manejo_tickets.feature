@@ -9,7 +9,18 @@ Scenario: Creacion de ticket
 Scenario: Cambio de estado de un ticket
   Given Ticket con estado "En curso"
   When Se Completa un Ticket
-  Then Ticket no debe tener estado "En curso"
+  Then Ticket debe tener estado "Cerrado"
+
+ # Scenario: Creo un ticket para un empleado que no se encuentra en la empresa
+ # Given Soy empleado de mesa de ayuda
+  #	When Creo un ticket con un responsable asignado con id "1000"
+	#And Ese responsable no se encuentra en el sistema
+	#Then Se emite un error
+
+#Scenario: Crear un ticket sin alguno de los atributos
+#		Given Soy empleado de mesa de ayuda
+#		When Creo un ticket sin alguno de los atributos obligatorios
+#		Then El ticket no es creado
 
 
 #  Scenario: Asignacion de un ticket a un producto

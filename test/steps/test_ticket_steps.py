@@ -15,7 +15,7 @@ ticketService = TicketService()
 # Creacion de Ticket
 @given('un cliente y una version de producto')
 def un_cliente_y_un_producto(context):
-    return
+    pass
 
 @when(u'quiera informar un nuevo ticket de un producto debere informar: <"nombre ticket">, <"severidad">, <"des problema">, <"des escenario">')
 def step_impl(context):
@@ -39,9 +39,9 @@ def step_impl(context):
                     "CUIT": "20-12345678-3"
                      }
     
-@Then('se creará un ticket con estado "Nuevo"')
-def ticket_con_estado_nuevo(context):
-    assert(ticketService.getTicketByID(context.ticket1["id"]).Estado == "Nuevo") 
+@Then('se creará un ticket con estado "{unEstado}"')
+def ticket_con_estado_nuevo(context, unEstado):
+    assert(ticketService.getTicketByID(context.ticket1["id"]).Estado == unEstado) 
     ticketService.deleteTicket(context.ticket1["id"])
 
 
@@ -76,9 +76,9 @@ def step_impl(context):
     ticketService.updateTicket(context.ticket1["id"], update_data)
 
 
-@then(u'Ticket no debe tener estado "En curso"')
-def step_impl(context):
-    assert(ticketService.getTicketByID(context.ticket1["id"]).Estado != "En curso")
+@then(u'Ticket debe tener estado "{unEstado}"')
+def step_impl(context, unEstado):
+    assert(ticketService.getTicketByID(context.ticket1["id"]).Estado == unEstado)
     ticketService.deleteTicket(context.ticket1["id"])
 
 """
