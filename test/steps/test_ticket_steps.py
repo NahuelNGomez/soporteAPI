@@ -26,7 +26,8 @@ def step_impl(context):
         "Estado": "Nuevo",
         "Severidad": "severidad",
         "idVersion": 2,
-        "CUIT": "20-12345678-3"
+        "CUIT": "20-12345678-3",
+        "RecursoAsignado": 2
     }
     ticketService.crearTicket(context.ticket1)
     context.ticket1 = {"id": ticketService.getLastIdTicketAdded(),
@@ -36,7 +37,8 @@ def step_impl(context):
                     "Estado": "Nuevo",
                     "Severidad": "severidad",
                     "idVersion": 2,
-                    "CUIT": "20-12345678-3"
+                    "CUIT": "20-12345678-3",
+                    "RecursoAsignado": 2
                      }
     
 @Then('se creará un ticket con estado "{unEstado}"')
@@ -54,7 +56,8 @@ def ticket_con_estado_en_curso(context):
                 "Estado":"En curso",
                 "Severidad":"S1",
                 "idVersion":2,
-                "CUIT":"20-12345678-3"
+                "CUIT":"20-12345678-3",
+                "RecursoAsignado": 2
                   }
     ticketService.crearTicket(context.ticket1)
     context.ticket1 = {"id": ticketService.getLastIdTicketAdded(),
@@ -64,7 +67,8 @@ def ticket_con_estado_en_curso(context):
                 "Estado":"En curso",
                 "Severidad":"S1",
                 "idVersion":2,
-                "CUIT":"20-12345678-3"
+                "CUIT":"20-12345678-3",
+                "RecursoAsignado": 2
             }
 
 @when(u'Se Completa un Ticket')

@@ -10,3 +10,4 @@ class TicketConNombre(BaseModel):
     idVersion: int
     nombreProducto: str
     CUIT: str
+    RecursoAsignado: int

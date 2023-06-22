@@ -1,6 +1,10 @@
 from pydantic import BaseModel
 from typing import Optional
 
+import requests
+#Se utiliza la API del modulo de recursos
+urlRecursos = "https://rrhh-squad6-1c2023.onrender.com/recursos"
+
 class Ticket(BaseModel):
     id: Optional[int]
     Nombre: str
@@ -10,6 +14,13 @@ class Ticket(BaseModel):
     Severidad: str
     idVersion: int
     CUIT: str
+    RecursoAsignado: int
+
+    def verificarRecurso(self, recursoAsignado):
+
+        empleados = requests.get(urlRecursos).json()
+        ids = [int(empleado["legajo"]) for empleado in empleados]
+        return (recursoAsignado in ids)
 
     def verificarEstado(self):
         return ((self.Estado == "Nuevo") or (self.Estado == "En curso") or (self.Estado == "Cerrado"))
@@ -23,4 +34,7 @@ class Ticket(BaseModel):
             excepcion = "Estado Invalido (Nuevo - En progreso - Cerrado)"
         if (not self.verificarSeveridad()):
             excepcion = "Severidad Invalida (S1 - S2 - S3 - S4)"
+        if (not self.verificarRecurso(self.RecursoAsignado)):
+            excepcion = "Recurso a asignar invalido"
+
         return excepcion

@@ -33,7 +33,14 @@ class VersionService():
         return productoService.getProducto(version.CodigoProducto)
 
     def getVersion(self, idVersion):
-        return conn.execute(versiones.select().where(versiones.c.idVersion == idVersion)).first()
+        query = conn.execute(versiones.select().where(versiones.c.idVersion == idVersion)).first()
+        return VersionConNombre(
+                idVersion= query.idVersion,
+                CodigoVersion=query.CodigoVersion,
+                CodigoProducto=query.CodigoProducto,
+                NombreProducto= productoService.getProducto(query.CodigoProducto).Nombre,
+                Estado=query.Estado
+        )
         
     def getLastIdVersionAdded(self):
         return conn.execute(versiones.select()).fetchall()[-1].idVersion

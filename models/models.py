@@ -33,7 +33,8 @@ tickets = Table("tickets", meta,
     Column("Estado", String(255)),
     Column("Severidad", String(255)),
     Column("idVersion", Integer, ForeignKey("versiones.idVersion",ondelete="CASCADE"), nullable=False),
-    Column("CUIT", String, ForeignKey("clientes.CUIT", ondelete="CASCADE"), nullable=False)
+    Column("CUIT", String, ForeignKey("clientes.CUIT", ondelete="CASCADE"), nullable=False),
+    Column("RecursoAsignado", Integer)
 )
 
 licencias = Table("licencias", meta, 

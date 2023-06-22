@@ -38,7 +38,8 @@ class TicketService():
                 Estado=row.Estado,
                 Severidad=row.Severidad,
                 idVersion=row.idVersion,
-                CUIT=row.CUIT
+                CUIT=row.CUIT,
+                RecursoAsignado=row.RecursoAsignado
             )
             tickets_list.append(ticket)
         
@@ -56,7 +57,7 @@ class TicketService():
         rows = result_proxy.fetchall()
         tickets_list = []
         for row in rows:
-            ticket = TicketConNombre(
+            ticket = Ticket(
                 id=row.id,
                 Nombre=row.Nombre,
                 Descripcion=row.Descripcion,
@@ -64,8 +65,8 @@ class TicketService():
                 Estado=row.Estado,
                 Severidad=row.Severidad,
                 idVersion=row.idVersion,
-                nombreProducto= versionService.getProductoByIdVersion(idVersion).Nombre,
-                CUIT=row.CUIT
+                CUIT=row.CUIT,
+                RecursoAsignado=row.RecursoAsignado
             )
             tickets_list.append(ticket)
         
