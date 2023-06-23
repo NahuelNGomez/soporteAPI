@@ -49,8 +49,8 @@ def create_ticket(ticket: Ticket):
             }
 
 @ticket.get('/tickets/{ticket_id}', response_model=Ticket, tags=["Tickets"])
-def get_ticket(id:int):
-    return ticketService.getTicketByID(id)
+def get_ticket(ticket_id:int):
+    return ticketService.getTicketByID(ticket_id)
 
 #@ticket.get('/tickets/CUIT/{CUIT}', response_model=List[Ticket], tags=["Tickets"])
 #def get_ticket(CUIT:str):
