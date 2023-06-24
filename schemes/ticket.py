@@ -1,16 +1,18 @@
 from datetime import date
-from pydantic import BaseModel, root_validator, validator
+from pydantic import BaseModel, root_validator, validator, Field
 from typing import Optional
+from uuid import UUID, uuid4
 import requests
 urlRecursos = "https://rrhh-squad6-1c2023.onrender.com/recursos"
 
 class Ticket(BaseModel):
-    id: Optional[int]
+    #id: Optional[int]
+    id: UUID = Field(default_factory=uuid4) #@Autogenerate
     FechaDeCreacion: Optional[date]
     Nombre: str
     Descripcion: str
     Escenario: str
-    Estado: str
+    Estado: str = Field(default_factory="Nuevo")
     Severidad: str
     idVersion: int
     CUIT: str
@@ -19,13 +21,18 @@ class Ticket(BaseModel):
     class Config:
         use_enum_values = True
         allow_population_by_field_name = True
+        validate_assigment = True
+
+    @validator("Estado", pre=True, always=True)
+    def set_estado(cls, Estado):
+        return Estado or "Nuevo"
 
     @root_validator(pre=True)
     def set_default_fecha_creacion(cls, values):
         if not values.get('FechaDeCreacion'):
             values['FechaDeCreacion'] = date.today()
         return values
-
+    
     def asignar(self,Nombre, Descripcion, Escenario, Estado, Severidad, idVersion, CUIT, RecursoAsignado):
         self.Nombre = Nombre
         self.Descripcion = Descripcion
@@ -36,9 +43,7 @@ class Ticket(BaseModel):
         self.CUIT = CUIT
         self.RecursoAsignado =  RecursoAsignado
 
-
     def verificarRecurso(self, recursoAsignado):
-
         empleados = requests.get(urlRecursos).json()
         ids = [int(empleado["legajo"]) for empleado in empleados]
         return (recursoAsignado in ids)

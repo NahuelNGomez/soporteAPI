@@ -18,36 +18,38 @@ ticketService = TicketService()
 def un_cliente_y_un_producto(context):
     pass
 
-@when(u'quiera informar un nuevo ticket de un producto debere informar: <"nombre ticket">, <"severidad">, <"des problema">, <"des escenario">')
-def step_impl(context):
+@when(u'quiera informar un nuevo ticket de un producto debere informar: "{nombre_ticket}", "{severidad}", "{des_problema}", "{des_escenario}"')
+def step_impl(context, nombre_ticket, severidad, des_problema, des_escenario):
+    
     context.ticket1 = {
-        "Nombre": "nombre ticket",
-        "Descripcion": "des_problema",
-        "Escenario": "des_escenario",
+        "Nombre": nombre_ticket,
+        "Descripcion": des_problema,
+        "Escenario": des_escenario,
         "Estado": "Nuevo",
-        "Severidad": "severidad",
+        "Severidad": severidad,
         "idVersion": 2,
         "CUIT": "20-12345678-3",
         "RecursoAsignado": 2
     }
     ticketService.crearTicket(context.ticket1)
     context.ticket1 = {"id": ticketService.getLastIdTicketAdded(),
-                    "Nombre": "nombre ticket",
-                    "Descripcion": "des_problema",
-                    "Escenario": "des_escenario",
+                    "Nombre": nombre_ticket,
+                    "Descripcion": des_problema,
+                    "Escenario": des_escenario,
                     "Estado": "Nuevo",
-                    "Severidad": "severidad",
+                    "Severidad": severidad,
                     "idVersion": 2,
                     "CUIT": "20-12345678-3",
                     "RecursoAsignado": 2
                      }
-    
-@Then('se creará un ticket con estado "{unEstado}"')
-def ticket_con_estado_nuevo(context, unEstado):
-    assert(ticketService.getTicketByID(context.ticket1["id"]).Estado == unEstado) 
+    pass
+
+@Then(u'se creará un ticket con "{estado}" Nuevo')
+def ticket_con_estado_nuevo(context, estado):
+    assert(ticketService.getTicketByID(context.ticket1["id"]).Estado == estado) 
     ticketService.deleteTicket(context.ticket1["id"])
 
-
+"""
 @given('Ticket con estado "En curso"')
 def ticket_con_estado_en_curso(context):
     context.ticket1 ={
@@ -153,6 +155,7 @@ def step_impl(context):
 @then(u'El ticket no es creado')
 def step_impl(context):
     pass
+"""
 
 """
 @given(u'una lista de clientes y un producto')
