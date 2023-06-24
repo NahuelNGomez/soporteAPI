@@ -49,14 +49,15 @@ def ticket_con_estado_nuevo(context, estado):
     assert(ticketService.getTicketByID(context.ticket1["id"]).Estado == estado) 
     ticketService.deleteTicket(context.ticket1["id"])
 
-"""
-@given('Ticket con estado "En curso"')
-def ticket_con_estado_en_curso(context):
+
+# Cambio de estado de un ticket
+@given('Ticket con "{estado_curso}" "En curso"')
+def ticket_con_estado_en_curso(context, estado_curso):
     context.ticket1 ={
                 "Nombre":"TICKET_PRUEBA",
                 "Descripcion":"DESCRIPCION",
                 "Escenario":"ESCENARIO",
-                "Estado":"En curso",
+                "Estado": estado_curso,
                 "Severidad":"S1",
                 "idVersion":2,
                 "CUIT":"20-12345678-3",
@@ -68,29 +69,32 @@ def ticket_con_estado_en_curso(context):
                   "Nombre":"TICKET_PRUEBA",
                 "Descripcion":"DESCRIPCION",
                 "Escenario":"ESCENARIO",
-                "Estado":"En curso",
+                "Estado": estado_curso,
                 "Severidad":"S1",
                 "idVersion":2,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2
             }
+    pass
 
 @when(u'Se Completa un Ticket')
 def step_impl(context):
     update_data: Dict[str, str] = {
-    "Estado": "Cerrado"
-}
+        "Estado": "Cerrado"
+    }
     
     ticketService.updateTicket(context.ticket1["id"], update_data)
+    pass
 
 
-@then(u'Ticket debe tener estado "{unEstado}"')
-def step_impl(context, unEstado):
-    assert(ticketService.getTicketByID(context.ticket1["id"]).Estado == unEstado)
+@then(u'Ticket debe tener "{estado_cerrado}" "Cerrado"')
+def step_impl(context, estado_cerrado):
+    assert(ticketService.getTicketByID(context.ticket1["id"]).Estado == estado_cerrado)
     ticketService.deleteTicket(context.ticket1["id"])
 
 
-
+"""
+# Creo un ticket para un empleado que no se encuentra en la empresa
 @given(u'Soy empleado de mesa de ayuda')
 def step_impl(context):
     pass
