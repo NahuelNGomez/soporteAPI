@@ -37,11 +37,12 @@ def step_impl(context):
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2
             }
-
+    pass
 
 @when(u'busque un ticket por alguno de los filtros disponibles')
 def step_impl(context):
     assert(context.ticket1["id"] != None)
+    pass
 
 @then(u'podre realizarle alguna modificacion de: "{nombre_ticket}", "{severidad}", "{des_problema}", "{des_escenario}", "{estado}"')
 def step_impl(context, nombre_ticket, severidad, des_problema, des_escenario, estado):

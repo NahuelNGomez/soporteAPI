@@ -18,3 +18,6 @@ class ProductoService():
         
     def getLastCodigoProductoAdded(self):
         return conn.execute(productos.select()).fetchall()[-1].CodigoProducto
+    
+    def deleteProducto(self, id):
+        return conn.execute(productos.delete().where(productos.c.CodigoProducto == id))

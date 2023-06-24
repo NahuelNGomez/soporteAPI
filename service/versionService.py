@@ -44,3 +44,6 @@ class VersionService():
         
     def getLastIdVersionAdded(self):
         return conn.execute(versiones.select()).fetchall()[-1].idVersion
+
+    def deleteVersion(self, id):
+        return conn.execute(versiones.delete().where(versiones.c.idVersion == id))
