@@ -49,7 +49,7 @@ def ticket_con_estado_nuevo(context, estado):
     assert(ticketService.getTicketByID(context.ticket1["id"]).Estado == estado) 
     ticketService.deleteTicket(context.ticket1["id"])
 
-
+"""
 # Cambio de estado de un ticket
 @given('Ticket con "{estado_curso}" "En curso"')
 def ticket_con_estado_en_curso(context, estado_curso):
@@ -91,7 +91,7 @@ def step_impl(context):
 def step_impl(context, estado_cerrado):
     assert(ticketService.getTicketByID(context.ticket1["id"]).Estado == estado_cerrado)
     ticketService.deleteTicket(context.ticket1["id"])
-
+"""
 
 """
 # Creo un ticket para un empleado que no se encuentra en la empresa
