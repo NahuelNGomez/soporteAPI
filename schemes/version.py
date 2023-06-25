@@ -3,9 +3,9 @@ from typing import Optional
 from uuid import UUID, uuid4
 
 class Version(BaseModel):
-    #idVersion: Optional[int]
+    idVersion: Optional[int]
     #idVersion: UUID = Field(default_factory=uuid4) #@Autogenerate
-    idVersion: int = Field(default_factory=int) #@Autogenerate
+    #idVersion: int = Field(default_factory=int) #@Autogenerate
     CodigoVersion: str
     CodigoProducto: int
     Estado: str
