@@ -8,26 +8,51 @@ from schemes.ticket import Ticket
 from schemes.version import Version
 from schemes.producto import Producto
 from schemes.cliente import Cliente
+from service.productoService import ProductoService
 from service.ticketService import TicketService
+from service.versionService import VersionService
 
 ticketService = TicketService()
-#ASUMO QUE SIEMPRE EXISTE UNA PRODUCTO Y  SU VERSION CON ID 2
+versionService = VersionService()
+productoService = ProductoService()
+#ASUMO QUE SIEMPRE EXISTE UNA PRODUCTO Y SU VERSION
+codigoProducto = None
+idVersion = None
+def inicializarProductoYVersion():
+    nuevoProducto = {"Nombre": "Producto Para Test"}
+    
+    productoService.crearProducto(nuevoProducto)
+    codigoProducto = productoService.getLastCodigoProductoAdded()
+    nuevaVersion = {
+        "CodigoVersion": "2.0",
+        "CodigoProducto": codigoProducto,
+        "Estado": "Nuevo"
+    }
+    
+    versionService.crearVersion(nuevaVersion)
+
+def eliminarProductoYVersion():
+    idVersion = versionService.getLastIdVersionAdded()
+    codigoProducto = productoService.getLastCodigoProductoAdded()
+    versionService.deleteVersion(idVersion)
+    productoService.deleteProducto(codigoProducto)
+
 
 # Creacion de Ticket
 @given('un cliente y una version de producto')
 def un_cliente_y_un_producto(context):
-    pass
+    inicializarProductoYVersion()
 
 @when(u'quiera informar un nuevo ticket de un producto debere informar: "{nombre_ticket}", "{severidad}", "{des_problema}", "{des_escenario}"')
 def step_impl(context, nombre_ticket, severidad, des_problema, des_escenario):
-    
+    idVersion = versionService.getLastIdVersionAdded()
     context.ticket1 = {
         "Nombre": nombre_ticket,
         "Descripcion": des_problema,
         "Escenario": des_escenario,
         "Estado": "Nuevo",
         "Severidad": severidad,
-        "idVersion": 2,
+        "idVersion": idVersion,
         "CUIT": "20-12345678-3",
         "RecursoAsignado": 2
     }
@@ -38,7 +63,7 @@ def step_impl(context, nombre_ticket, severidad, des_problema, des_escenario):
                     "Escenario": des_escenario,
                     "Estado": "Nuevo",
                     "Severidad": severidad,
-                    "idVersion": 2,
+                    "idVersion": idVersion,
                     "CUIT": "20-12345678-3",
                     "RecursoAsignado": 2
                      }
@@ -48,6 +73,7 @@ def step_impl(context, nombre_ticket, severidad, des_problema, des_escenario):
 def ticket_con_estado_nuevo(context, estado):
     assert(ticketService.getTicketByID(context.ticket1["id"]).Estado == estado) 
     ticketService.deleteTicket(context.ticket1["id"])
+    eliminarProductoYVersion()
 
 """
 # Cambio de estado de un ticket
@@ -93,24 +119,25 @@ def step_impl(context, estado_cerrado):
     ticketService.deleteTicket(context.ticket1["id"])
 """
 
-"""
+
 # Creo un ticket para un empleado que no se encuentra en la empresa
 @given(u'Soy empleado de mesa de ayuda')
 def step_impl(context):
-    pass
+    inicializarProductoYVersion()
 
 
 @when(u'Creo un ticket con un responsable asignado con id "{unID}"')
 def step_impl(context, unID):
     context.error = None
+    idVersion = versionService.getLastIdVersionAdded()
     ticket = Ticket(
                 Nombre= "TicketPrueba",
-                FechaDeCreacion= date.today,
+                FechaDeCreacion= date.today(),
                 Descripcion="Decripcion",
                 Escenario="escenario",
                 Estado="En Curso",
                 Severidad="S1",
-                idVersion=2,
+                idVersion=idVersion,
                 CUIT="20-12345678-3",
                 RecursoAsignado=unID
             )
@@ -130,8 +157,9 @@ def step_impl(context):
 @then(u'Se emite un error')
 def step_impl(context):
     assert(context.error != None)
+    eliminarProductoYVersion()
 
-
+"""
 @when(u'Creo un ticket sin alguno de los atributos obligatorios')
 def step_impl(context):
     context.error = None

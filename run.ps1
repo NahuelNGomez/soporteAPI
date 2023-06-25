@@ -8,4 +8,4 @@ sleep 10
 echo "Se corren las pruebas de bdd:"
 behave --color test\features
 echo "Se abre FastApi"
-start chrome https://apisoporte.onrender.com/docs
+#start chrome https://apisoporte.onrender.com/docs

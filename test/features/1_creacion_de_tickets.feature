@@ -11,11 +11,15 @@ Scenario Outline: Creacion de ticket
 		| audio rapi    | s3		| no audio	   | se reincio    | Nuevo  |
 
 
-#Scenario: Creo un ticket para un empleado que no se encuentra en la empresa
-#  Given Soy empleado de mesa de ayuda
-#  When Creo un ticket con un responsable asignado con id "1000"
-#  And Ese responsable no se encuentra en el sistema
-#  Then Se emite un error
+Scenario Outline: Creo un ticket para un empleado que no se encuentra en la empresa
+  Given Soy empleado de mesa de ayuda
+  When Creo un ticket con un responsable asignado con id "<un_id>"
+  And Ese responsable no se encuentra en el sistema
+  Then Se emite un error
+
+  Examples: Id
+  | un_id |
+  |1000|
 
 #Scenario: Crear un ticket sin alguno de los atributos
 #  Given Soy empleado de mesa de ayuda
