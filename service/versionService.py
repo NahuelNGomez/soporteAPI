@@ -32,6 +32,13 @@ class VersionService():
         version = conn.execute(versiones.select().where(versiones.c.idVersion == idVersion)).first()
         return productoService.getProducto(version.CodigoProducto)
 
+    def getVersionsByCodigoProducto(self, codigoProducto):
+        versiones_query = conn.execute(versiones.select().where(versiones.c.CodigoProducto == codigoProducto))
+        versiones_list = []
+        for row in versiones_query:
+            versiones_list.append(row.idVersion)
+        return versiones_list
+
     def getVersion(self, idVersion):
         query = conn.execute(versiones.select().where(versiones.c.idVersion == idVersion)).first()
         return VersionConNombre(

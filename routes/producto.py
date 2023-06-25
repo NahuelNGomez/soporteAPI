@@ -5,8 +5,9 @@ from schemes.ticket import Ticket
 from schemes.ticketConNombre import TicketConNombre
 from service.productoService import ProductoService
 from sqlalchemy.exc import IntegrityError
-from fastapi import HTTPException
 from service.ticketService import TicketService
+from fastapi import APIRouter, HTTPException, Response, status
+from starlette.status import HTTP_204_NO_CONTENT
 
 producto = APIRouter()
 productoService = ProductoService()
@@ -31,3 +32,7 @@ def create_producto(producto: Producto):
 def get_producto(codigoProducto: int):
     return productoService.getProducto(codigoProducto)
 
+@producto.delete('/productos/{CodigoProducto}', status_code= status.HTTP_204_NO_CONTENT, tags=["Productos"])
+def delete_ticket(CodigoProducto:int):
+    result = productoService.deleteProducto(CodigoProducto)
+    return Response(status_code=HTTP_204_NO_CONTENT)

@@ -7,7 +7,8 @@ urlRecursos = "https://rrhh-squad6-1c2023.onrender.com/recursos"
 
 class Ticket(BaseModel):
     #id: Optional[int]
-    id: UUID = Field(default_factory=uuid4) #@Autogenerate
+    #id: UUID = Field(default_factory=uuid4) #@Autogenerate
+    id: int = Field(default_factory=int) #@Autogenerate 
     FechaDeCreacion: Optional[date]
     Nombre: str
     Descripcion: str

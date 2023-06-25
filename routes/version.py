@@ -46,3 +46,8 @@ def get_version(idVersion: int):
 @version.get('/versiones/{idVersion}/tickets', response_model=List[Ticket], tags=["Versiones"])
 def get_tickets(idVersion: int):
     return ticketService.getTicketsByIdVersion(idVersion)
+
+@version.delete('/versiones/{idVersion}', status_code= status.HTTP_204_NO_CONTENT, tags=["Versiones"])
+def delete_ticket(idVersion:int):
+    result = versionService.deleteVersion(idVersion)
+    return Response(status_code=HTTP_204_NO_CONTENT)
