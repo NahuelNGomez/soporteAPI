@@ -48,6 +48,8 @@ class TareaAsignadaService():
         rows = result_proxy.fetchall()
     
         tarea_list = []
+
+        # Deberia devolver una lista de tareas (con toda la info), a partir de un get del id de la tarea.
         for row in rows:
             tareaAsignada = TareaAsignada(
                 codigoDeAsignacion = row.codigoDeAsignacion,
