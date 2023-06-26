@@ -113,13 +113,14 @@ def step_impl(context, producto):
     assert(context.ticket1["id"] != context.ticket2["id"])
 
     
-@then(u'quiera encontrar un ticket')
+@when(u'quiera encontrar un ticket')
 def step_impl(context):
     assert(ticketService.getTicketByID(context.ticket1["id"]) != None)
     assert(ticketService.getTicketByID(context.ticket2["id"]) != None)
 
 
-@when(u'podre filtrar los tickets por: "{cliente}", "{severidad}", "{producto}", "{id_ticket}", "{id_version}"')
+
+@then(u'podre filtrar los tickets por: "{cliente}", "{severidad}", "{producto}", "{id_ticket}", "{id_version}"')
 def step_impl(context, cliente, severidad, producto, id_ticket, id_version):
     # por id:
     # se fuerza el id, porque depende de la carga real de la base de datos:

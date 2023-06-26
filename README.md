@@ -13,7 +13,7 @@
 `` https://apisoporte.onrender.com/docs``
 
 #### Correr test de cucumber:
-`` behave test\features``
+`` behave --color test\features``
 
 ## Ejecución por script en windows 10:
 `` ./run.ps1``

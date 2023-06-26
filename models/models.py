@@ -43,4 +43,10 @@ licencias = Table("licencias", meta,
     Column("CUIT", String, ForeignKey("clientes.CUIT",ondelete="CASCADE"), primary_key=True, nullable=False),
 )
 
+tareasAsignadas = Table("tareasAsignadas", meta, 
+    Column("codigoDeAsignacion", Integer, primary_key=True, nullable=False),                  
+    Column("idTarea", Integer, nullable=False),
+    Column("id", Integer, ForeignKey("tickets.id",ondelete="CASCADE"), nullable=False),
+)
+
 meta.create_all(engine)

@@ -3,16 +3,16 @@ Feature: Derivacion de un ticket
 
  Scenario: Se deriva un ticket mediante una tarea
 	Given una tarea necesaria para resolver un ticket
-	When se cree la tarea en el proyecto
-	Then se podra vincular la tarea con el ticket
+	When se asigne la tarea al ticket
+	Then se vinculara el ticket con la tarea
  
  Scenario: Se vinculan varias tareas a un ticket
 	Given varias tareas necesarias para resolver un ticket
-	When se creen las tareas en un proyecto
-	Then se podran vincular a un ticket
+	When se asignen las tareas al ticket
+	Then se vinculara el ticket con las tareas
 
  Scenario: Se Vincula una tarea con varios tickets
 	Given una tarea necesaria para resolver varios tickets
-	When se cree la tarea en un proyecto
-	Then se podran vincular varios tickets con una tarea
+	When se asigne la tarea a los tickets necesarios
+	Then se vincularan los tickets con la tarea
 
