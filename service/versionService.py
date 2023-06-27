@@ -5,8 +5,10 @@ from fastapi import HTTPException
 from schemes.versionConNombre import VersionConNombre
 
 from service.productoService import ProductoService
+from service.ticketService import TicketService
 
 productoService = ProductoService()
+ticketService = TicketService()
 
 class VersionService():
 
@@ -29,6 +31,21 @@ class VersionService():
     def crearVersion(self, nuevaVersion):
         return conn.execute(versiones.insert().values(nuevaVersion))
     
+    def calcularTiempo(self, ticket):
+        return ((ticket.FechaDeFinalizacion - ticket.FechaDeCreacion).days)
+    
+    def getPromedioTickets(self, severidad):
+        tickets = ticketService.getTicketBySeveridad(severidad)
+        sumaTiempo = 0
+        promedioTotal = 0
+        cerrados = 0
+        for ticket in tickets:
+            if(ticket.estaCerrado()):
+                cerrados += 1
+                sumaTiempo += self.calcularTiempo(ticket)
+        if(cerrados != 0):
+            promedioTotal = sumaTiempo/cerrados
+        return promedioTotal
     def getProductoByIdVersion(self, idVersion):
         version = conn.execute(versiones.select().where(versiones.c.idVersion == idVersion)).first()
         return productoService.getProducto(version.CodigoProducto)

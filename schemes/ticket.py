@@ -45,16 +45,17 @@ class Ticket(BaseModel):
         self.CUIT = CUIT
         self.RecursoAsignado =  RecursoAsignado
 
-    def verificarRecurso(self, recursoAsignado):
-        empleados = requests.get(urlRecursos).json()
-        ids = [int(empleado["legajo"]) for empleado in empleados]
-        return (recursoAsignado in ids)
-
     def verificarEstado(self):
         return ((self.Estado == "Nuevo") or (self.Estado == "En progreso") or (self.Estado == "Cerrado"))
     
     def verificarSeveridad(self):
         return ((self.Severidad == "S1") or (self.Severidad == "S2") or (self.Severidad == "S3") or (self.Severidad == "S4"))
+
+    def verificarFechas(self):
+        return (((self.FechaDeFinalizacion - self.FechaDeCreacion).days) >= 0)
+    
+    def verificarFechaDeCreacion(self):
+        return self.FechaDeCreacion <= date.today()
 
     def verificarError(self):
         excepcion = None
@@ -62,7 +63,12 @@ class Ticket(BaseModel):
             excepcion = "Estado Invalido (Nuevo - En progreso - Cerrado)"
         if (not self.verificarSeveridad()):
             excepcion = "Severidad Invalida (S1 - S2 - S3 - S4)"
-        if (not self.verificarRecurso(self.RecursoAsignado)):
-            excepcion = "Recurso a asignar invalido"
+        if (not self.verificarFechas()):
+            excepcion = "La fecha de finalizacion no puede ser anterior a la fecha de creacion"
+        if (not self.verificarFechaDeCreacion()):
+            excepcion = "La fecha de creacion no puede ser posterior al día de hoy"       
 
         return excepcion
+
+    def estaCerrado(self):
+        return self.Estado == "Cerrado"

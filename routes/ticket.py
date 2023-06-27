@@ -33,11 +33,11 @@ def create_ticket(ticket: Ticket):
                   }
     exception = ticket.verificarError()
     if (exception != None):
-        raise HTTPException(status_code=500, detail=exception)
+        raise HTTPException(status_code=400, detail=exception)
     try: 
         ticketService.crearTicket(newTicket)
     except IntegrityError:
-       raise HTTPException(status_code=500, detail="Error en parámetros")
+       raise HTTPException(status_code=400, detail="Error en parámetros")
     return {"id": ticketService.getLastIdTicketAdded(),
             "FechaDeCreacion": ticket.FechaDeCreacion,
             "FechaDeFinalizacion": ticket.FechaDeFinalizacion,

@@ -4,10 +4,8 @@ from models.models import tickets
 from schemes.ticket import Ticket
 from schemes.ticketConNombre import TicketConNombre
 from service.productoService import ProductoService
-from service.versionService import VersionService
 
 productoService = ProductoService()
-versionService = VersionService()
 
 class TicketService():
 
@@ -46,7 +44,7 @@ class TicketService():
         
         return tickets_list
         
-    def getTicketByProducto(self, nombreProducto):
+    #def getTicketByProducto(self, nombreProducto):
         # se busca el codigo del producto:
         codigoProducto = productoService.getCodigoProductoByNombre(nombreProducto)
         if codigoProducto == None:

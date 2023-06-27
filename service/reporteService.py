@@ -15,9 +15,9 @@ class ReporteService():
                 idVersion=version.idVersion,
                 NombreProducto=productoService.getProducto(version.CodigoProducto).Nombre,
                 CodigoVersion=version.CodigoVersion,
-                PromedioS1=0,
-                PromedioS2=0,
-                PromedioS3=0,
-                PromedioS4=0,
+                PromedioS1=versionService.getPromedioTickets("S1"),
+                PromedioS2=versionService.getPromedioTickets("S2"),
+                PromedioS3=versionService.getPromedioTickets("S3"),
+                PromedioS4=versionService.getPromedioTickets("S4")
             )
          return reporte
