@@ -15,6 +15,7 @@ versiones = Table(
     "versiones",
     meta,
     Column("idVersion", Integer, nullable=False, primary_key=True),
+    Column("idProyecto", Integer, nullable=True),
     Column("CodigoVersion", String, nullable=False),
     Column("CodigoProducto", Integer, ForeignKey("productos.CodigoProducto", ondelete="CASCADE"), nullable=False),
     Column("Estado", String(255)),

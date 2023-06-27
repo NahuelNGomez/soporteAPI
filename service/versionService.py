@@ -16,6 +16,7 @@ class VersionService():
         for row in versiones_query:
             newVersion = VersionConNombre(
                 idVersion= row.idVersion,
+                idProyecto= row.idProyecto,
                 CodigoVersion=row.CodigoVersion,
                 CodigoProducto=row.CodigoProducto,
                 NombreProducto= productoService.getProducto(row.CodigoProducto).Nombre,
@@ -43,11 +44,15 @@ class VersionService():
         query = conn.execute(versiones.select().where(versiones.c.idVersion == idVersion)).first()
         return VersionConNombre(
                 idVersion= query.idVersion,
+                idProyecto= query.idProyecto,
                 CodigoVersion=query.CodigoVersion,
                 CodigoProducto=query.CodigoProducto,
                 NombreProducto= productoService.getProducto(query.CodigoProducto).Nombre,
                 Estado=query.Estado
         )
+    
+    def updateVersion(self, idVersion, update_data):
+        return conn.execute(versiones.update().values(**update_data).where(versiones.c.idVersion == int(idVersion)))
         
     def getLastIdVersionAdded(self):
         return conn.execute(versiones.select()).fetchall()[-1].idVersion

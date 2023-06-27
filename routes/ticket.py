@@ -63,7 +63,6 @@ def delete_ticket(id:int):
 
 @ticket.put('/tickets/{id}', response_model=Ticket, tags=["Tickets"])
 def update_ticket(id: int, ticket: Dict):
-    
 
     update_data = {k: v for k, v in ticket.items() if v is not None}
     if not update_data:
@@ -76,4 +75,4 @@ def update_ticket(id: int, ticket: Dict):
     except IntegrityError:
         raise HTTPException(status_code=500, detail="Error updating ticket")
 
-    return ticketService.getTicket(id)
+    return ticketService.getTicketByID(id)
