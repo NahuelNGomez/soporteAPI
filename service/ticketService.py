@@ -32,6 +32,7 @@ class TicketService():
             ticket = Ticket(
                 id=row.id,
                 FechaDeCreacion= row.FechaDeCreacion,
+                FechaDeFinalizacion= row.FechaDeFinalizacion,
                 Nombre=row.Nombre,
                 Descripcion=row.Descripcion,
                 Escenario=row.Escenario,
@@ -65,6 +66,7 @@ class TicketService():
                 ticket = Ticket(
                     id=row.id,
                     FechaDeCreacion= row.FechaDeCreacion,
+                    FechaDeFinalizacion= row.FechaDeFinalizacion,
                     Nombre=row.Nombre,
                     Descripcion=row.Descripcion,
                     Escenario=row.Escenario,
@@ -89,6 +91,7 @@ class TicketService():
             ticket = Ticket(
                 id=row.id,
                 FechaDeCreacion= row.FechaDeCreacion,
+                FechaDeFinalizacion= row.FechaDeFinalizacion,
                 Nombre=row.Nombre,
                 Descripcion=row.Descripcion,
                 Escenario=row.Escenario,
@@ -117,6 +120,7 @@ class TicketService():
             ticket = Ticket(
                 id=row.id,
                 FechaDeCreacion= row.FechaDeCreacion,
+                FechaDeFinalizacion= row.FechaDeFinalizacion,
                 Nombre=row.Nombre,
                 Descripcion=row.Descripcion,
                 Escenario=row.Escenario,

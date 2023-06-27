@@ -22,6 +22,7 @@ def get_tickets():
 def create_ticket(ticket: Ticket):
     newTicket = {"Nombre": ticket.Nombre,
                  "FechaDeCreacion": ticket.FechaDeCreacion,
+                 "FechaDeFinalizacion": ticket.FechaDeFinalizacion,
                   "Descripcion": ticket.Descripcion,
                   "Escenario": ticket.Escenario,
                   "Estado": ticket.Estado,
@@ -39,6 +40,7 @@ def create_ticket(ticket: Ticket):
        raise HTTPException(status_code=500, detail="Error en parámetros")
     return {"id": ticketService.getLastIdTicketAdded(),
             "FechaDeCreacion": ticket.FechaDeCreacion,
+            "FechaDeFinalizacion": ticket.FechaDeFinalizacion,
                   "Nombre": ticket.Nombre,
                   "Descripcion": ticket.Descripcion,
                   "Escenario": ticket.Escenario,

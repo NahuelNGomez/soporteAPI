@@ -10,6 +10,7 @@ class Ticket(BaseModel):
     #id: UUID = Field(default_factory=uuid4) #@Autogenerate
     id: int = Field(default_factory=int) #@Autogenerate 
     FechaDeCreacion: Optional[date]
+    FechaDeFinalizacion: date
     Nombre: str
     Descripcion: str
     Escenario: str
@@ -50,7 +51,7 @@ class Ticket(BaseModel):
         return (recursoAsignado in ids)
 
     def verificarEstado(self):
-        return ((self.Estado == "Nuevo") or (self.Estado == "En curso") or (self.Estado == "Cerrado"))
+        return ((self.Estado == "Nuevo") or (self.Estado == "En progreso") or (self.Estado == "Cerrado"))
     
     def verificarSeveridad(self):
         return ((self.Severidad == "S1") or (self.Severidad == "S2") or (self.Severidad == "S3") or (self.Severidad == "S4"))
