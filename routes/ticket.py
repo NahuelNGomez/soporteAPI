@@ -21,6 +21,7 @@ def get_tickets():
 @ticket.post('/tickets', response_model=Ticket, tags=["Tickets"])
 def create_ticket(ticket: Ticket):
     newTicket = {"Nombre": ticket.Nombre,
+                 "FechaDeCreacion": ticket.FechaDeCreacion,
                   "Descripcion": ticket.Descripcion,
                   "Escenario": ticket.Escenario,
                   "Estado": ticket.Estado,
@@ -37,7 +38,7 @@ def create_ticket(ticket: Ticket):
     except IntegrityError:
        raise HTTPException(status_code=500, detail="Error en parámetros")
     return {"id": ticketService.getLastIdTicketAdded(),
-            "FechaDeCreacion": date.today(),
+            "FechaDeCreacion": ticket.FechaDeCreacion,
                   "Nombre": ticket.Nombre,
                   "Descripcion": ticket.Descripcion,
                   "Escenario": ticket.Escenario,
