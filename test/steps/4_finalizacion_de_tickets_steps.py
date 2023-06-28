@@ -21,7 +21,7 @@ def ticket_con_estado_en_curso(context, estado_curso):
                 "Escenario":"ESCENARIO",
                 "Estado": estado_curso,
                 "Severidad":"S1",
-                "idVersion":2,
+                "idVersion":1,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2
                   }
@@ -33,7 +33,7 @@ def ticket_con_estado_en_curso(context, estado_curso):
                 "Escenario":"ESCENARIO",
                 "Estado": estado_curso,
                 "Severidad":"S1",
-                "idVersion":2,
+                "idVersion":1,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2
             }

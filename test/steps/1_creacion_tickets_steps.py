@@ -27,7 +27,7 @@ def step_impl(context, nombre_ticket, severidad, des_problema, des_escenario):
         "Escenario": des_escenario,
         "Estado": "Nuevo",
         "Severidad": severidad,
-        "idVersion": 2,
+        "idVersion": 1,
         "CUIT": "20-12345678-3",
         "RecursoAsignado": 2
     }
@@ -38,7 +38,7 @@ def step_impl(context, nombre_ticket, severidad, des_problema, des_escenario):
                     "Escenario": des_escenario,
                     "Estado": "Nuevo",
                     "Severidad": severidad,
-                    "idVersion": 2,
+                    "idVersion": 1,
                     "CUIT": "20-12345678-3",
                     "RecursoAsignado": 2
                      }

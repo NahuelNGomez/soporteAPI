@@ -22,7 +22,7 @@ def step_impl(context):
                 "Escenario":"ESCENARIO",
                 "Estado": "Nuevo",
                 "Severidad":"S1",
-                "idVersion": 2,
+                "idVersion": 1,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2
                   }
@@ -64,7 +64,7 @@ def step_impl(context):
                 "Escenario":"ESCENARIO",
                 "Estado": "Nuevo",
                 "Severidad":"S1",
-                "idVersion": 2,
+                "idVersion": 1,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2
                   }
@@ -113,7 +113,7 @@ def step_impl(context):
                 "Escenario":"ESCENARIO",
                 "Estado": "Nuevo",
                 "Severidad":"S1",
-                "idVersion": 2,
+                "idVersion": 1,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2
                   }
@@ -126,7 +126,7 @@ def step_impl(context):
                 "Escenario":"ESCENARIO",
                 "Estado": "Nuevo",
                 "Severidad":"S1",
-                "idVersion": 2,
+                "idVersion": 1,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2
                   }
