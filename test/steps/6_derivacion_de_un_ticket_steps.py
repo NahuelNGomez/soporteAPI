@@ -6,19 +6,46 @@ from datetime import date, timedelta
 from schemes.ticket import Ticket
 from schemes.version import Version
 from schemes.tareaAsignadaCompleta import TareaAsignadaCompleta
+from service.productoService import ProductoService
 from service.ticketService import TicketService
 from service.tareaAsignadaService import TareaAsignadaService
+from service.versionService import VersionService
 
 ticketService = TicketService()
 tareaService = TareaAsignadaService()
+productoService = ProductoService()
+versionService = VersionService()
 
 # los test fallan porque en service, al crear la tarea, "title" genera una keyerror
 # no puedo conectarme a la base de proyectos desde el back,
 # la logica del test esta ok, con los metodos correctos.
 
 # se deriva un ticket
+
+codigoProducto = None
+idVersion = None
+def inicializarProductoYVersion():
+    nuevoProducto = {"Nombre": "Producto Para Test"}
+    
+    productoService.crearProducto(nuevoProducto)
+    codigoProducto = productoService.getLastCodigoProductoAdded()
+    nuevaVersion = {
+        "CodigoVersion": "2.0",
+        "CodigoProducto": codigoProducto,
+        "Estado": "Nuevo"
+    }
+    
+    versionService.crearVersion(nuevaVersion)
+
+def eliminarProductoYVersion():
+    idVersion = versionService.getLastIdVersionAdded()
+    codigoProducto = productoService.getLastCodigoProductoAdded()
+    versionService.deleteVersion(idVersion)
+    productoService.deleteProducto(codigoProducto)
+
 @given(u'una tarea necesaria para resolver un ticket')
 def step_impl(context):
+    idVersion = versionService.getLastIdVersionAdded()
 
     context.ticket1 ={
                 "Nombre":"TICKET_PRUEBA_6",
@@ -26,7 +53,7 @@ def step_impl(context):
                 "Escenario":"ESCENARIO",
                 "Estado": "Nuevo",
                 "Severidad":"S1",
-                "idVersion": 1,
+                "idVersion": idVersion,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2,
                 "FechaDeFinalizacion": date.today() + timedelta(days=15)
@@ -64,13 +91,14 @@ def step_impl(context):
 # se vinculan varias tareas con un ticket
 @given(u'varias tareas necesarias para resolver un ticket')
 def step_impl(context):
+    idVersion = versionService.getLastIdVersionAdded()
     context.ticket1 ={
                 "Nombre":"TICKET_PRUEBA_6",
                 "Descripcion":"DESCRIPCION",
                 "Escenario":"ESCENARIO",
                 "Estado": "Nuevo",
                 "Severidad":"S1",
-                "idVersion": 1,
+                "idVersion": idVersion,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2,
                 "FechaDeFinalizacion": date.today() + timedelta(days=15)
@@ -114,13 +142,14 @@ def step_impl(context):
 # se vincula una tarea con varios tickets
 @given(u'una tarea necesaria para resolver varios tickets')
 def step_impl(context):
+    idVersion = versionService.getLastIdVersionAdded()
     context.ticket1 ={
                 "Nombre":"TICKET_PRUEBA_6",
                 "Descripcion":"DESCRIPCION",
                 "Escenario":"ESCENARIO",
                 "Estado": "Nuevo",
                 "Severidad":"S1",
-                "idVersion": 1,
+                "idVersion": idVersion,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2,
                 "FechaDeFinalizacion": date.today() + timedelta(days=15)
@@ -134,7 +163,7 @@ def step_impl(context):
                 "Escenario":"ESCENARIO",
                 "Estado": "Nuevo",
                 "Severidad":"S1",
-                "idVersion": 1,
+                "idVersion": idVersion,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2,
                 "FechaDeFinalizacion": date.today() + timedelta(days=15)

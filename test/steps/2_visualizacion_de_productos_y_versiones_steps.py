@@ -13,48 +13,45 @@ from service.versionService import VersionService
 
 productService = ProductoService()
 versionService = VersionService()
+codigoProducto = None
+idVersion = None
+
+def inicializarProductoYVersion():
+    nuevoProducto = {"Nombre": "Producto Para Test"}
+    
+    productService.crearProducto(nuevoProducto)
+    codigoProducto = productService.getLastCodigoProductoAdded()
+    nuevaVersion = {
+        "CodigoVersion": "2.0",
+        "CodigoProducto": codigoProducto,
+        "Estado": "Nuevo"
+    }
+    
+    versionService.crearVersion(nuevaVersion)
+
+
+def eliminarProductoYVersion():
+    idVersion = versionService.getLastIdVersionAdded()
+    codigoProducto = productService.getLastCodigoProductoAdded()
+    versionService.deleteVersion(idVersion)
+    productService.deleteProducto(codigoProducto)
 
 @given(u'una lista de prodcutos y versiones')
 def step_impl(context):
-    # carga de productos:
-    context.product1 = {
-        "Nombre": "producto_1"
-        }
-    productService.crearProducto(context.product1)
-    context.product1 = {
-        "id": productService.getLastCodigoProductoAdded(),
-        "Nombre": "producto_1"
-        }
-
-    # carga de versiones:
-    context.version1 = {
-        "CodigoVersion": "1.2.3",
-        "CodigoProducto": (productService.getProducto(context.product1["id"])).CodigoProducto,
-        "Estado": "Terminado"
-        }
-    versionService.crearVersion(context.version1)
-    context.version1 = {
-        "id": versionService.getLastIdVersionAdded(),
-        "CodigoVersion": "1.2.3",
-        "CodigoProducto": (productService.getProducto(context.product1["id"])).CodigoProducto,
-        "Estado": "Terminado"
-        }
-    pass
+    inicializarProductoYVersion()
 
 @when(u'quiera conocer los productos y sus versiones disponibles')
 def step_impl(context):
-    assert(productService.getProducto(context.product1["id"]) != None)
-    assert(versionService.getVersion(context.version1["id"]) != None)
+    idVersion = versionService.getLastIdVersionAdded()
+    codigoProducto = productService.getLastCodigoProductoAdded()
+    assert(productService.getProducto(codigoProducto) != None)
+    assert(versionService.getVersion(idVersion) != None)
 
 
 @then(u'se me informaran todos los productos con sus versiones disponibles')
 def step_impl(context):
-  
-   assert((productService.getProducto(context.product1["id"])).Nombre == 
-          (context.product1["Nombre"]))
-   assert((versionService.getVersion(context.version1["id"])).CodigoVersion == 
-          context.version1["CodigoVersion"])
-
-   productService.deleteProducto(context.product1["id"])
-   versionService.deleteVersion(context.version1["id"])
+    codigoProducto = productService.getLastCodigoProductoAdded()
+    assert((productService.getProducto(codigoProducto)).Nombre == 
+          ("Producto Para Test"))
+    eliminarProductoYVersion()
    

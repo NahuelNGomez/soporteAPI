@@ -49,7 +49,7 @@ def step_impl(context):
                 "Escenario":"ESCENARIO",
                 "Estado": "Nuevo",
                 "Severidad":"S3",
-                "idVersion":1,
+                "idVersion":idVersion,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2,
                 "FechaDeFinalizacion": date.today() + timedelta(days=15)
@@ -62,7 +62,7 @@ def step_impl(context):
                 "Escenario":"ESCENARIO",
                 "Estado": "Nuevo",
                 "Severidad":"S3",
-                "idVersion":1,
+                "idVersion":idVersion,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2,
                 "FechaDeFinalizacion": date.today() + timedelta(days=15)

@@ -50,7 +50,7 @@ def ticket_con_estado_en_curso(context, estado_curso):
                 "Escenario":"ESCENARIO",
                 "Estado": estado_curso,
                 "Severidad":"S1",
-                "idVersion":1,
+                "idVersion":idVersion,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2,
                 "FechaDeFinalizacion": date.today() + timedelta(days=15)
@@ -63,7 +63,7 @@ def ticket_con_estado_en_curso(context, estado_curso):
                 "Escenario":"ESCENARIO",
                 "Estado": estado_curso,
                 "Severidad":"S1",
-                "idVersion":1,
+                "idVersion":idVersion,
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2,
                 "FechaDeFinalizacion": date.today() + timedelta(days=15)

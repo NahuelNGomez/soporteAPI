@@ -52,7 +52,7 @@ def step_impl(context, nombre_ticket, severidad, des_problema, des_escenario):
         "Escenario": des_escenario,
         "Estado": "Nuevo",
         "Severidad": severidad,
-        "idVersion": 1,
+        "idVersion": idVersion,
         "CUIT": "20-12345678-3",
         "RecursoAsignado": 2,
         "FechaDeFinalizacion": date.today() + timedelta(days=15)
@@ -64,7 +64,7 @@ def step_impl(context, nombre_ticket, severidad, des_problema, des_escenario):
                     "Escenario": des_escenario,
                     "Estado": "Nuevo",
                     "Severidad": severidad,
-                    "idVersion": 1,
+                    "idVersion": idVersion,
                     "CUIT": "20-12345678-3",
                     "RecursoAsignado": 2,
                     "FechaDeFinalizacion": date.today() + timedelta(days=15)
