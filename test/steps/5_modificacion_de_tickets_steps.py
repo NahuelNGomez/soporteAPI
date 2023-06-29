@@ -49,11 +49,7 @@ def step_impl(context):
                 "Escenario":"ESCENARIO",
                 "Estado": "Nuevo",
                 "Severidad":"S3",
-<<<<<<< HEAD
-                "idVersion":idVersion,
-=======
                 "idVersion":1,
->>>>>>> tests
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2
                   }
@@ -65,11 +61,7 @@ def step_impl(context):
                 "Escenario":"ESCENARIO",
                 "Estado": "Nuevo",
                 "Severidad":"S3",
-<<<<<<< HEAD
-                "idVersion":idVersion,
-=======
                 "idVersion":1,
->>>>>>> tests
                 "CUIT":"20-12345678-3",
                 "RecursoAsignado": 2
             }
