@@ -40,6 +40,7 @@ class TicketService():
                 CUIT=row.CUIT,
                 RecursoAsignado=row.RecursoAsignado
             )
+            
             tickets_list.append(ticket)
         
         return tickets_list
