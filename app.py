@@ -21,6 +21,7 @@ add_clientes()
 
 origins = [
     "http://localhost:3000",  # Origen permitido (puedes añadir más si es necesario)
+    "https://tribu-e-front-end-v2.onrender.com"
 ]
 
 app.add_middleware(

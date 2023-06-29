@@ -5,10 +5,12 @@ from fastapi import HTTPException
 from schemes.versionConNombre import VersionConNombre
 
 from service.productoService import ProductoService
+from service.tareaAsignadaService import TareaAsignadaService
 from service.ticketService import TicketService
 
 productoService = ProductoService()
 ticketService = TicketService()
+tareaAsignadaService = TareaAsignadaService()
 
 class VersionService():
 
@@ -34,8 +36,8 @@ class VersionService():
     def calcularTiempo(self, ticket):
         return ((ticket.FechaDeFinalizacion - ticket.FechaDeCreacion).days)
     
-    def getPromedioTickets(self, severidad):
-        tickets = ticketService.getTicketBySeveridad(severidad)
+    def getPromedioTickets(self, severidad, idVersion):
+        tickets = ticketService.getTicketBySeveridad(severidad, idVersion)
         sumaTiempo = 0
         promedioTotal = 0
         cerrados = 0
@@ -76,3 +78,8 @@ class VersionService():
 
     def deleteVersion(self, id):
         return conn.execute(versiones.delete().where(versiones.c.idVersion == id))
+    
+    def deleteProyecto(self, id):
+        tareaAsignadaService.eliminarByIdVersion(id)
+        update_data = {"idProyecto": None}
+        return conn.execute(versiones.update().values(**update_data).where(versiones.c.idVersion == int(id)))

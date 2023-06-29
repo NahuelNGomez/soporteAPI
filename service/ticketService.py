@@ -4,6 +4,7 @@ from models.models import tickets
 from schemes.ticket import Ticket
 from schemes.ticketConNombre import TicketConNombre
 from service.productoService import ProductoService
+from sqlalchemy import and_
 
 productoService = ProductoService()
 
@@ -21,8 +22,8 @@ class TicketService():
     def getTicketByID(self, id):
         return conn.execute(tickets.select().where(tickets.c.id == id)).first()
 
-    def getTicketBySeveridad(self, severidad):
-        query = tickets.select().where(tickets.c.Severidad == severidad)
+    def getTicketBySeveridad(self, severidad, idVersion):
+        query = tickets.select().where(and_(tickets.c.Severidad == severidad, tickets.c.idVersion == idVersion))
         result_proxy = conn.execute(query)
         rows = result_proxy.fetchall()
         tickets_list = []
@@ -40,6 +41,7 @@ class TicketService():
                 CUIT=row.CUIT,
                 RecursoAsignado=row.RecursoAsignado
             )
+            
             tickets_list.append(ticket)
         
         return tickets_list

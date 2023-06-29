@@ -4,8 +4,10 @@ from config.db import conn
 from models.models import tareasAsignadas
 #from schemes.tareaAsignada import TareaAsignada
 from schemes.tareaAsignadaCompleta import TareaAsignadaCompleta
+from service.ticketService import TicketService
 
 urlProyectos = "https://api-proyectos.onrender.com/projects/tasks/"
+ticketService = TicketService()
 
 class TareaAsignadaService():
 
@@ -73,6 +75,13 @@ class TareaAsignadaService():
 
     def deleteTareaAsignada(self, codigoDeAsignacion):
         return conn.execute(tareasAsignadas.delete().where(tareasAsignadas.c.codigoDeAsignacion == codigoDeAsignacion))
+    
+    def eliminarByIdVersion(self, idVersion):
+        tickets = ticketService.getTicketsByIdVersion(idVersion)
+        for ticket in tickets:
+            conn.execute(tareasAsignadas.delete().where(tareasAsignadas.c.id == ticket.id))
+            print(ticket)
+        return 
     
     def getLastCodigoDeAsignacionAdded(self):
         return conn.execute(tareasAsignadas.select()).fetchall()[-1].codigoDeAsignacion
