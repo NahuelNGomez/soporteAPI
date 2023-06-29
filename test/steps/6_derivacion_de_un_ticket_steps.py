@@ -32,6 +32,7 @@ def inicializarProductoYVersion():
     nuevaVersion = {
         "CodigoVersion": "2.0",
         "CodigoProducto": codigoProducto,
+        "idProyecto": 1,
         "Estado": "Nuevo"
     }
     

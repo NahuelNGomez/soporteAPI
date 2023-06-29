@@ -33,27 +33,31 @@ def step_impl(context, producto):
     context.version1 = {
         "CodigoVersion": "1.2.3",
         "CodigoProducto": (productService.getProducto(context.producto1["id"])).CodigoProducto,
-        "Estado": "Terminado"
+        "Estado": "Terminado",
+        "idProyecto": 1
         }
     versionService.crearVersion(context.version1)
     context.version1 = {
         "id": versionService.getLastIdVersionAdded(),
         "CodigoVersion": "1.2.3",
         "CodigoProducto": (productService.getProducto(context.producto1["id"])).CodigoProducto,
-        "Estado": "Terminado"
+        "Estado": "Terminado",
+        "idProyecto": 1
         }
 
     context.version2 = {
         "CodigoVersion": "1.2.4",
         "CodigoProducto": (productService.getProducto(context.producto1["id"])).CodigoProducto,
-        "Estado": "Terminado"
+        "Estado": "Terminado",
+        "idProyecto": 1
         }
     versionService.crearVersion(context.version2)
     context.version2 = {
         "id": versionService.getLastIdVersionAdded(),
         "CodigoVersion": "1.2.4",
         "CodigoProducto": (productService.getProducto(context.producto1["id"])).CodigoProducto,
-        "Estado": "Terminado"
+        "Estado": "Terminado",
+        "idProyecto": 1
         }
 
     assert(versionService.getVersion(context.version1["id"]) != None)
