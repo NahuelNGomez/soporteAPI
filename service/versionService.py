@@ -34,8 +34,8 @@ class VersionService():
     def calcularTiempo(self, ticket):
         return ((ticket.FechaDeFinalizacion - ticket.FechaDeCreacion).days)
     
-    def getPromedioTickets(self, severidad):
-        tickets = ticketService.getTicketBySeveridad(severidad)
+    def getPromedioTickets(self, severidad, idVersion):
+        tickets = ticketService.getTicketBySeveridad(severidad, idVersion)
         sumaTiempo = 0
         promedioTotal = 0
         cerrados = 0
