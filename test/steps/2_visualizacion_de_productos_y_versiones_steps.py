@@ -2,7 +2,7 @@ from behave import *
 from selenium import webdriver
 from models.models import tickets
 from typing import Dict
-from datetime import date
+from datetime import date, timedelta
 
 from schemes.ticket import Ticket
 from schemes.version import Version

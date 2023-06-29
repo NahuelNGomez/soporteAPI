@@ -49,6 +49,10 @@ tareasAsignadas = Table("tareasAsignadas", meta,
     Column("codigoDeAsignacion", Integer, primary_key=True, nullable=False),                  
     Column("idTarea", Integer, nullable=False),
     Column("id", Integer, ForeignKey("tickets.id",ondelete="CASCADE"), nullable=False),
+    Column("title", String(255)),
+    Column("status", String(255)),
+    Column("task_priority", String(255)),
+    Column("empleoyee_info", String(255))
 )
 
 meta.create_all(engine)

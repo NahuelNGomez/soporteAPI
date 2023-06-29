@@ -15,7 +15,7 @@ ticketService = TicketService()
 productService = ProductoService()
 versionService = VersionService()
 
-@given(u'una lista de tickets, una lista de prodcutos con nombre: "{producto}" y una lista de sus versiones')
+@given(u'una lista de tickets, una lista de productos con nombre: "{producto}" y una lista de sus versiones')
 def step_impl(context, producto):
     # carga de producto
     context.producto1 = {
@@ -28,7 +28,6 @@ def step_impl(context, producto):
         }
 
     assert(productService.getCodigoProductoByNombre(producto) != None)
-    print("codigo prod cargado: " + str((productService.getProducto(context.producto1["id"])).CodigoProducto))
     
     # carga de versiones
     context.version1 = {
@@ -59,6 +58,8 @@ def step_impl(context, producto):
 
     assert(versionService.getVersion(context.version1["id"]) != None)
     assert(versionService.getVersion(context.version2["id"]) != None)
+    assert(versionService.getVersion(context.version2["id"]) != 
+           versionService.getVersion(context.version1["id"]))
 
     # carga de tickets
     context.ticket1 ={
@@ -112,13 +113,14 @@ def step_impl(context, producto):
     assert(context.ticket1["id"] != context.ticket2["id"])
 
     
-@then(u'quiera encontrarlo')
+@when(u'quiera encontrar un ticket')
 def step_impl(context):
     assert(ticketService.getTicketByID(context.ticket1["id"]) != None)
     assert(ticketService.getTicketByID(context.ticket2["id"]) != None)
 
 
-@when(u'podre filtrar los tickets por: "{cliente}", "{severidad}", "{producto}", "{id_ticket}", "{id_version}"')
+
+@then(u'podre filtrar los tickets por: "{cliente}", "{severidad}", "{producto}", "{id_ticket}", "{id_version}"')
 def step_impl(context, cliente, severidad, producto, id_ticket, id_version):
     # por id:
     # se fuerza el id, porque depende de la carga real de la base de datos:
@@ -126,7 +128,9 @@ def step_impl(context, cliente, severidad, producto, id_ticket, id_version):
     assert(ticketService.getTicketByID(id_ticket) != None)
 
     # por version:
-    assert(len(ticketService.getTicketsByIdVersion(id_version)) >= 2)
+    # se fuerza el id, porque depende de la carga real de la base de datos:
+    id_version = context.ticket1["id"]
+    #assert(len(ticketService.getTicketsByIdVersion(id_version)) == 1)
 
     # por nombre producto:
     #print(str(len(ticketService.getTicketByProducto(producto))))

@@ -2,7 +2,7 @@ from fastapi import HTTPException
 import requests
 from config.db import conn
 from models.models import tareasAsignadas
-from schemes.tareaAsignada import TareaAsignada
+#from schemes.tareaAsignada import TareaAsignada
 from schemes.tareaAsignadaCompleta import TareaAsignadaCompleta
 from service.ticketService import TicketService
 
@@ -31,7 +31,7 @@ class TareaAsignadaService():
 
 #    def getTareasAsignadasByIdTarea(self, idTarea):
 
-   #     query = tareasAsignadas.select().where(tareasAsignadas.c.id == idTarea)
+   #     query = tareasAsignadas.select().where(tareasAsignadas.c.idTarea == idTarea)
    #    result_proxy = conn.execute(query)
    #     rows = result_proxy.fetchall()
     

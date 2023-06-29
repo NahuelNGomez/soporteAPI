@@ -2,7 +2,7 @@ from behave import *
 from selenium import webdriver
 from models.models import tickets
 from typing import Dict
-from datetime import date
+from datetime import date, timedelta
 
 from schemes.ticket import Ticket
 from schemes.version import Version
@@ -50,9 +50,10 @@ def ticket_con_estado_en_curso(context, estado_curso):
                 "Escenario":"ESCENARIO",
                 "Estado": estado_curso,
                 "Severidad":"S1",
-                "idVersion":idVersion,
+                "idVersion":1,
                 "CUIT":"20-12345678-3",
-                "RecursoAsignado": 2
+                "RecursoAsignado": 2,
+                "FechaDeFinalizacion": date.today() + timedelta(days=15)
                   }
     ticketService.crearTicket(context.ticket1)
     context.ticket1 = {"id": ticketService.getLastIdTicketAdded(),
@@ -62,9 +63,10 @@ def ticket_con_estado_en_curso(context, estado_curso):
                 "Escenario":"ESCENARIO",
                 "Estado": estado_curso,
                 "Severidad":"S1",
-                "idVersion":idVersion,
+                "idVersion":1,
                 "CUIT":"20-12345678-3",
-                "RecursoAsignado": 2
+                "RecursoAsignado": 2,
+                "FechaDeFinalizacion": date.today() + timedelta(days=15)
             }
     pass
 
