@@ -69,3 +69,8 @@ def update_version(idVersion: int, version: Dict):
 def delete_ticket(idVersion:int):
     result = versionService.deleteVersion(idVersion)
     return Response(status_code=HTTP_204_NO_CONTENT)
+
+@version.delete('/versiones/{idVersion}/proyectos', status_code= status.HTTP_204_NO_CONTENT, tags=["Versiones"])
+def delete_proyectos(idVersion:int):
+    result = versionService.deleteProyecto(idVersion)
+    return Response(status_code=HTTP_204_NO_CONTENT)
