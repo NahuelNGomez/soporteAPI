@@ -1,16 +1,20 @@
 from behave import *
 from selenium import webdriver
 from models.models import tickets
-from datetime import date
+from datetime import date, timedelta
 
 from schemes.ticket import Ticket
 from schemes.version import Version
-from schemes.tareaAsignada import TareaAsignada
+from schemes.tareaAsignadaCompleta import TareaAsignadaCompleta
 from service.ticketService import TicketService
 from service.tareaAsignadaService import TareaAsignadaService
 
 ticketService = TicketService()
 tareaService = TareaAsignadaService()
+
+# los test fallan porque en service, al crear la tarea, "title" genera una keyerror
+# no puedo conectarme a la base de proyectos desde el back,
+# la logica del test esta ok, con los metodos correctos.
 
 # se deriva un ticket
 @given(u'una tarea necesaria para resolver un ticket')
@@ -24,14 +28,16 @@ def step_impl(context):
                 "Severidad":"S1",
                 "idVersion": 1,
                 "CUIT":"20-12345678-3",
-                "RecursoAsignado": 2
+                "RecursoAsignado": 2,
+                "FechaDeFinalizacion": date.today() + timedelta(days=15)
                   }
     ticketService.crearTicket(context.ticket1)
     context.ticket1.update({"id": ticketService.getLastIdTicketAdded()})
     
     context.tarea1 = {
         "id": context.ticket1["id"],
-        "idTarea": 0
+        "idTarea": 16,
+        "title":"prueba-6"
         }
     tareaService.crearTareaAsignada(context.tarea1)
     context.tarea1.update({"codigoDeAsignacion": tareaService.getLastCodigoDeAsignacionAdded()})
@@ -41,7 +47,7 @@ def step_impl(context):
 
 @when(u'se asigne la tarea al ticket')
 def step_impl(context):
-    assert(len(tareaService.getTareasAsignadasByIdTarea(context.tarea1["idTarea"])) >= 1)
+    assert(len(tareaService.getTareasAsignadasByIdTicket(context.ticket1["id"])) >= 1)
 
 
 @then(u'se vinculara el ticket con la tarea')
@@ -66,7 +72,8 @@ def step_impl(context):
                 "Severidad":"S1",
                 "idVersion": 1,
                 "CUIT":"20-12345678-3",
-                "RecursoAsignado": 2
+                "RecursoAsignado": 2,
+                "FechaDeFinalizacion": date.today() + timedelta(days=15)
                   }
     ticketService.crearTicket(context.ticket1)
     context.ticket1.update({"id": ticketService.getLastIdTicketAdded()})
@@ -89,8 +96,8 @@ def step_impl(context):
 
 @when(u'se asignen las tareas al ticket')
 def step_impl(context):
-    assert(len(tareaService.getTareasAsignadasByIdTarea(context.tarea1["idTarea"])) == 1)
-    assert(len(tareaService.getTareasAsignadasByIdTarea(context.tarea2["idTarea"])) == 1)
+    assert(len(tareaService.getTareasAsignadasByIdTicket(context.ticket1["id"])) == 1)
+    assert(len(tareaService.getTareasAsignadasByIdTicket(context.ticket2["id"])) == 1)
 
 
 @then(u'se vinculara el ticket con las tareas')
@@ -115,7 +122,8 @@ def step_impl(context):
                 "Severidad":"S1",
                 "idVersion": 1,
                 "CUIT":"20-12345678-3",
-                "RecursoAsignado": 2
+                "RecursoAsignado": 2,
+                "FechaDeFinalizacion": date.today() + timedelta(days=15)
                   }
     ticketService.crearTicket(context.ticket1)
     context.ticket1.update({"id": ticketService.getLastIdTicketAdded()})
@@ -128,7 +136,8 @@ def step_impl(context):
                 "Severidad":"S1",
                 "idVersion": 1,
                 "CUIT":"20-12345678-3",
-                "RecursoAsignado": 2
+                "RecursoAsignado": 2,
+                "FechaDeFinalizacion": date.today() + timedelta(days=15)
                   }
     ticketService.crearTicket(context.ticket2)
     context.ticket2.update({"id": ticketService.getLastIdTicketAdded()})
@@ -154,7 +163,7 @@ def step_impl(context):
 
 @when(u'se asigne la tarea a los tickets necesarios')
 def step_impl(context):
-    assert(len(tareaService.getTareasAsignadasByIdTarea(context.tarea1["idTarea"])) == 2)
+    assert(len(tareaService.getTareasAsignadasByIdTicket(context.ticket1["id"])) == 2)
 
 
 @then(u'se vincularan los tickets con la tarea')

@@ -2,7 +2,7 @@ from fastapi import HTTPException
 import requests
 from config.db import conn
 from models.models import tareasAsignadas
-from schemes.tareaAsignada import TareaAsignada
+#from schemes.tareaAsignada import TareaAsignada
 from schemes.tareaAsignadaCompleta import TareaAsignadaCompleta
 
 urlProyectos = "https://api-proyectos.onrender.com/projects/tasks/"
