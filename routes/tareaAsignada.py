@@ -43,3 +43,8 @@ def get_tarea_by_IdTicket(idTicket: int):
 def delete_asignada(codigoDeAsignacion:int):
     result = tareaAsignadaService.deleteTareaAsignada(codigoDeAsignacion)
     return Response(status_code=HTTP_204_NO_CONTENT)
+
+@tareaAsignada.delete('/tareasAsignadas/{idTarea}/tareas', status_code= status.HTTP_204_NO_CONTENT, tags=["Tareas Asignadas"])
+def delete_asignada(idTarea:int):
+    result = tareaAsignadaService.deleteTareasAsignadasByID(idTarea)
+    return Response(status_code=HTTP_204_NO_CONTENT)

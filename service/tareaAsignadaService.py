@@ -76,6 +76,9 @@ class TareaAsignadaService():
     def deleteTareaAsignada(self, codigoDeAsignacion):
         return conn.execute(tareasAsignadas.delete().where(tareasAsignadas.c.codigoDeAsignacion == codigoDeAsignacion))
     
+    def deleteTareasAsignadasByID(idTarea):
+        return conn.execute(tareasAsignadas.delete().where(tareasAsignadas.c.idTarea == idTarea))
+    
     def eliminarByIdVersion(self, idVersion):
         tickets = ticketService.getTicketsByIdVersion(idVersion)
         for ticket in tickets:
