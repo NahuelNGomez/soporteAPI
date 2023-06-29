@@ -1,7 +1,10 @@
 from fastapi import APIRouter
 from typing import List
 from schemes.tareaAsignada import TareaAsignada
+<<<<<<< HEAD
 from schemes.tareaAsignadaCompleta import TareaAsignadaCompleta
+=======
+>>>>>>> tests
 
 from schemes.ticket import Ticket
 from schemes.ticketConNombre import TicketConNombre
@@ -35,7 +38,11 @@ def create_tarea_asignada(tareaAsignada: TareaAsignada):
             "idTarea": tareaAsignada.idTarea,
             "id": tareaAsignada.id}
 
+<<<<<<< HEAD
 @tareaAsignada.get('/tareasAsignadas/{idTicket}', response_model=List[TareaAsignadaCompleta], tags=["Tareas Asignadas"])
+=======
+@tareaAsignada.get('/tareasAsignadas/{idTicket}', response_model=List[TareaAsignada], tags=["Tareas Asignadas"])
+>>>>>>> tests
 def get_tarea_by_IdTicket(idTicket: int):
     return tareaAsignadaService.getTareasAsignadasByIdTicket(idTicket)
 

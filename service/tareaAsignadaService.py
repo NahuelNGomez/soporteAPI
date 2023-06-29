@@ -1,4 +1,5 @@
 from fastapi import HTTPException
+<<<<<<< HEAD
 import requests
 from config.db import conn
 from models.models import tareasAsignadas
@@ -6,6 +7,13 @@ from schemes.tareaAsignada import TareaAsignada
 from schemes.tareaAsignadaCompleta import TareaAsignadaCompleta
 
 urlProyectos = "https://api-proyectos.onrender.com/projects/tasks/"
+=======
+from config.db import conn
+from models.models import tareasAsignadas
+from schemes.tareaAsignada import TareaAsignada
+
+
+>>>>>>> tests
 class TareaAsignadaService():
 
     def verificaTareaNoAsignada(self, tarea):
@@ -26,6 +34,7 @@ class TareaAsignadaService():
         raise HTTPException(status_code=500, detail="Error en parámetros")
     
 
+<<<<<<< HEAD
 #    def getTareasAsignadasByIdTarea(self, idTarea):
 
    #     query = tareasAsignadas.select().where(tareasAsignadas.c.id == idTarea)
@@ -46,6 +55,25 @@ class TareaAsignadaService():
     def conseguirTarea(self, idTarea):
         tarea = requests.get(urlProyectos + str(idTarea)).json()
         return (tarea)
+=======
+    def getTareasAsignadasByIdTarea(self, idTarea):
+
+        query = tareasAsignadas.select().where(tareasAsignadas.c.idTarea == idTarea)
+        result_proxy = conn.execute(query)
+        rows = result_proxy.fetchall()
+    
+        tarea_list = []
+        for row in rows:
+            tareaAsignada = TareaAsignada(
+                codigoDeAsignacion = row.codigoDeAsignacion,
+                idTarea=row.idTarea,
+               id=row.id
+            )
+            tarea_list.append(tareaAsignada)
+         
+        return tarea_list
+
+>>>>>>> tests
 
     def getTareasAsignadasByIdTicket(self, idTicket):
         query = tareasAsignadas.select().where(tareasAsignadas.c.id == idTicket)
@@ -56,6 +84,7 @@ class TareaAsignadaService():
 
         # Deberia devolver una lista de tareas (con toda la info), a partir de un get del id de la tarea.
         for row in rows:
+<<<<<<< HEAD
             tarea = self.conseguirTarea(row.idTarea)
             tareaAsignada = TareaAsignadaCompleta(
                 codigoDeAsignacion = row.codigoDeAsignacion,
@@ -65,6 +94,12 @@ class TareaAsignadaService():
                 estado = tarea["status"],
                 prioridad = tarea["task_priority"],
                 recursoAsignado = tarea["employee_info"]["name"] + " " + tarea["employee_info"]["last_name"]
+=======
+            tareaAsignada = TareaAsignada(
+                codigoDeAsignacion = row.codigoDeAsignacion,
+                idTarea=row.idTarea,
+                id=row.id
+>>>>>>> tests
             )
             tarea_list.append(tareaAsignada)
         

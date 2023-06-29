@@ -52,7 +52,11 @@ def step_impl(context, nombre_ticket, severidad, des_problema, des_escenario):
         "Escenario": des_escenario,
         "Estado": "Nuevo",
         "Severidad": severidad,
+<<<<<<< HEAD
         "idVersion": idVersion,
+=======
+        "idVersion": 1,
+>>>>>>> tests
         "CUIT": "20-12345678-3",
         "RecursoAsignado": 2
     }
@@ -63,7 +67,11 @@ def step_impl(context, nombre_ticket, severidad, des_problema, des_escenario):
                     "Escenario": des_escenario,
                     "Estado": "Nuevo",
                     "Severidad": severidad,
+<<<<<<< HEAD
                     "idVersion": idVersion,
+=======
+                    "idVersion": 1,
+>>>>>>> tests
                     "CUIT": "20-12345678-3",
                     "RecursoAsignado": 2
                      }
@@ -75,49 +83,6 @@ def ticket_con_estado_nuevo(context, estado):
     ticketService.deleteTicket(context.ticket1["id"])
     eliminarProductoYVersion()
 
-"""
-# Cambio de estado de un ticket
-@given('Ticket con "{estado_curso}" "En curso"')
-def ticket_con_estado_en_curso(context, estado_curso):
-    context.ticket1 ={
-                "Nombre":"TICKET_PRUEBA",
-                "Descripcion":"DESCRIPCION",
-                "Escenario":"ESCENARIO",
-                "Estado": estado_curso,
-                "Severidad":"S1",
-                "idVersion":2,
-                "CUIT":"20-12345678-3",
-                "RecursoAsignado": 2
-                  }
-    ticketService.crearTicket(context.ticket1)
-    context.ticket1 = {"id": ticketService.getLastIdTicketAdded(),
-                       "FechaDeCreacion": date.today,
-                  "Nombre":"TICKET_PRUEBA",
-                "Descripcion":"DESCRIPCION",
-                "Escenario":"ESCENARIO",
-                "Estado": estado_curso,
-                "Severidad":"S1",
-                "idVersion":2,
-                "CUIT":"20-12345678-3",
-                "RecursoAsignado": 2
-            }
-    pass
-
-@when(u'Se Completa un Ticket')
-def step_impl(context):
-    update_data: Dict[str, str] = {
-        "Estado": "Cerrado"
-    }
-    
-    ticketService.updateTicket(context.ticket1["id"], update_data)
-    pass
-
-
-@then(u'Ticket debe tener "{estado_cerrado}" "Cerrado"')
-def step_impl(context, estado_cerrado):
-    assert(ticketService.getTicketByID(context.ticket1["id"]).Estado == estado_cerrado)
-    ticketService.deleteTicket(context.ticket1["id"])
-"""
 
 
 # Creo un ticket para un empleado que no se encuentra en la empresa
@@ -187,40 +152,4 @@ def step_impl(context):
 @then(u'El ticket no es creado')
 def step_impl(context):
     pass
-"""
-
-"""
-@given(u'una lista de clientes y un producto')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given una lista de clientes y un producto')
-
-
-@when(u'quiera informar un nuevo ticket de un producto')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: When quiera informar un nuevo ticket de un producto')
-
-
-@then(u'deberé informar producto: versión de producto, cliente, severidad, descripción del problema, descripción del escenario')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then deberé informar producto: versión de producto, cliente, severidad, descripción del problema, descripción del escenario')
-
-
-@then(u'se creara un ticket con estado "en curso"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then se creara un ticket con estado "en curso"')
-
-
-@given(u'un producto en especifico')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given un producto en especifico')
-
-
-@when(u'trato de crear un ticket sin especificar su estado')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: When trato de crear un ticket sin especificar su estado')
-
-
-@then(u'el ticket se creará con estado "nuevo".')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then el ticket se creará con estado "nuevo".')
 """

@@ -49,7 +49,7 @@ class TicketService():
         codigoProducto = productoService.getCodigoProductoByNombre(nombreProducto)
         if codigoProducto == None:
            return None
-        
+       
         # se busca sus idVersion:
         versiones_list = versionService.getVersionsByCodigoProducto(codigoProducto)
 
